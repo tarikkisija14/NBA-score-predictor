@@ -1,0 +1,47 @@
+# --- Python ---
+venv/
+.env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python data i modeli
+*.csv
+*.xlsx
+*.xls
+*.joblib
+*.pkl
+
+# --- Angular / Node ---
+node_modules/
+dist/
+out-tsc/
+.angular/
+package-lock.json
+yarn.lock
+
+# --- C# / .NET ---
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.user
+*.suo
+*.cache
+*.log
+
+# --- IDE / Editors ---
+.idea/
+.vscode/
+*.sln
+*.csproj.user
+
+# --- OS specifični ---
+.DS_Store
+Thumbs.db
+
+# --- Large datasets (specifično za tvoj AI model) ---
+ai_model/data/raw/
+ai_model/data/cleaned/
