@@ -18,28 +18,29 @@ def loadClean(csv_path):
     print("Missing values per column:")
     print(df.isnull().sum())
 
-    df_clean=df.dropna()
+    df_clean = df.dropna()
     print("Data info after dropping missing values:")
     print(df_clean.info())
 
-    if __name__ == "__main__":
 
-        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-
-        raw_csv_path = os.path.join(base_dir, 'data', 'nba_all_games.csv')
+    return df_clean
 
 
-        cleaned_dir = os.path.join(base_dir, 'data', 'cleaned')
+if __name__ == "__main__":
+
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+    raw_csv_path = os.path.join(base_dir, 'data', 'nba_all_games.csv')
+
+    cleaned_dir = os.path.join(base_dir, 'data', 'cleaned')
+
+    if not os.path.exists(cleaned_dir):
+        os.makedirs(cleaned_dir)
 
 
-        if not os.path.exists(cleaned_dir):
-            os.makedirs(cleaned_dir)
+    cleaned_df = loadClean(raw_csv_path)
 
-        # Učitaj i očisti podatke
-        cleaned_df = loadClean(raw_csv_path)
 
-        # Spremi očišćeni CSV u folder cleaned
-        save_path = os.path.join(cleaned_dir, 'nba_cleaned_data.csv')
-        cleaned_df.to_csv(save_path, index=False)
-        print(f"Cleaned data saved to {save_path}")
+    save_path = os.path.join(cleaned_dir, 'nba_cleaned_data.csv')
+    cleaned_df.to_csv(save_path, index=False)
+    print(f"Cleaned data saved to {save_path}")
