@@ -42,6 +42,6 @@ obj/
 .DS_Store
 Thumbs.db
 
-# --- Large datasets (specifično za tvoj AI model) ---
+
 ai_model/data/raw/
 ai_model/data/cleaned/
