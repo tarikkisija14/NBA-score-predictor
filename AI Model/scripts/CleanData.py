@@ -12,7 +12,7 @@ def clean_and_encode_data(input_csv_path: str, output_csv_path: str):
 
     if 'TEAM1_WIN' not in df.columns:
         df['TEAM1_WIN'] = (df['TEAM1_PTS'] > df['TEAM2_PTS']).astype(int)
-    df['WINNER'] = df['TEAM1_WIN']
+
 
     df['SEASON_START'] = df['SEASON'].str[:4].astype(int)
 

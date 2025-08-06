@@ -34,4 +34,10 @@ print("Tipovi podataka po kolonama:")
 for col in df_clean.columns:
     print(f"{col}: {df_clean[col].dtype}")
 
+print("------------------------------------------\n")
+
+print("Kolone u datasetu:")
+for col in df_clean.columns:
+    print(col)
+
     
