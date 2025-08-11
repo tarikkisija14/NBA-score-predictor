@@ -10,46 +10,43 @@ model_loser_pts = joblib.load(r"C:\Users\tarik\Desktop\nba score predictor\AI Mo
 with open(r"C:\Users\tarik\Desktop\nba score predictor\AI Model\models\feature_columns.json", 'r') as f:
     feature_cols = json.load(f)
 
-def predict_game(input_data):
-    X_input = pd.DataFrame([input_data], columns=feature_cols)
+avg_stats = pd.read_csv(r"C:\Users\tarik\Desktop\nba score predictor\AI Model\data\team_average_stats.csv")
 
 
-    winner_pred = model_winner.predict(X_input)[0]
-    winner_pts_pred = int(round(model_winner_pts.predict(X_input)[0]))
-    loser_pts_pred = int(round(model_loser_pts.predict(X_input)[0]))
+def predict_game(team1_name, team2_name):
+
+    input_data = pd.DataFrame([[0] * len(feature_cols)], columns=feature_cols)
+
+
+    team1_col = f"TEAM1_{team1_name}"
+    team2_col = f"TEAM2_{team2_name}"
+
+    if team1_col in input_data.columns:
+        input_data.at[0, team1_col] = 1
+    else:
+        raise ValueError(f"Ne postoji kolona {team1_col} u feature setu!")
+
+    if team2_col in input_data.columns:
+        input_data.at[0, team2_col] = 1
+    else:
+        raise ValueError(f"Ne postoji kolona {team2_col} u feature setu!")
+
+
+    winner_pred = model_winner.predict(input_data)[0]
+    winner_pts_pred = int(round(model_winner_pts.predict(input_data)[0]))
+    loser_pts_pred = int(round(model_loser_pts.predict(input_data)[0]))
+
+
+    winner_name = team1_name if winner_pred == 1 else team2_name
+    loser_name= team1_name if winner_pred == 0 else team2_name
 
     return {
-        "winner": "TEAM1" if winner_pred == 1 else "TEAM2",
+        "winner": winner_name,
         "winner_points": winner_pts_pred,
-        "loser_points": loser_pts_pred
+        "loser_points": loser_pts_pred,
+        "loser":loser_name
     }
 
-
-example_input = {
-
-    'TEAM1_AST': 25, 'TEAM2_AST': 22,
-    'TEAM1_REB': 45, 'TEAM2_REB': 42,
-    'TEAM1_FG_PCT': 0.48, 'TEAM2_FG_PCT': 0.45,
-    'TEAM1_FT_PCT': 0.85, 'TEAM2_FT_PCT': 0.78,
-    'TEAM1_PLUS_MINUS': 5, 'TEAM2_PLUS_MINUS': -5,
-
-
-    'TEAM1_Boston Celtics': 1,
-    'TEAM1_Los Angeles Lakers': 0,
-    'TEAM2_Boston Celtics': 0,
-    'TEAM2_Los Angeles Lakers': 1
-}
-
-for col in feature_cols:
-    if col not in example_input:
-        example_input[col] = 0
-
-result = predict_game(example_input)
-
-team1_name = [col.replace('TEAM1_', '') for col in example_input if col.startswith('TEAM1_') and example_input[col] == 1][0]
-team2_name = [col.replace('TEAM2_', '') for col in example_input if col.startswith('TEAM2_') and example_input[col] == 1][0]
-
-if result["winner"] == "TEAM1":
-    print(f" {team1_name} {result['winner_points']} : {result['loser_points']} {team2_name}")
-else:
-    print(f"{team1_name} {result['loser_points']} : {result['winner_points']}  {team2_name}")
+if __name__ == "__main__":
+    result = predict_game("Boston Celtics", "Los Angeles Lakers")
+    print(f"{result['winner']} {result['winner_points']} - {result['loser_points']} {result['loser']}")
