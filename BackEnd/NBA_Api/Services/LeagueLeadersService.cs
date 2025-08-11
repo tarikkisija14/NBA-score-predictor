@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace NBA_Api.Controllers
+﻿namespace NBA_Api.Services
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class LeagueLeadersController : ControllerBase
+    public class LeagueLeadersService:ILeagueLeadersService
     {
-        [HttpGet("leaders")]
-       public IActionResult GetLeagueLeaders()
+        public object GetLeagueLeaders()
         {
-            var leaders = new
+            return new
             {
                 PPG = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" },
                 RPG = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" },
@@ -18,7 +13,6 @@ namespace NBA_Api.Controllers
                 BPG = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" },
                 FGPercent = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" }
             };
-            return Ok(leaders);
         }
     }
 }

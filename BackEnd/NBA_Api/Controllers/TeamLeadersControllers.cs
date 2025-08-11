@@ -1,25 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NBA_Api.Services;
 
 namespace NBA_Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TeamLeadersControllers : Controller
+    public class TeamLeadersControllers : ControllerBase
     {
-        [HttpGet("{teamId}")]
-       public IActionResult GetTeamLeaders(string teamId)
+        private readonly ITeamLeadersService _teamLeadersService;
+
+        public TeamLeadersControllers(ITeamLeadersService teamLeadersService)
         {
-            var leaders = new
-            {
-                TeamId = teamId,
-                PPG = new[] { "PlayerA", "PlayerB", "PlayerC", "PlayerD", "PlayerE" },
-                RPG = new[] { "PlayerA", "PlayerB", "PlayerC", "PlayerD", "PlayerE" },
-                APG = new[] { "PlayerA", "PlayerB", "PlayerC", "PlayerD", "PlayerE" },
-                SPG = new[] { "PlayerA", "PlayerB", "PlayerC", "PlayerD", "PlayerE" },
-                BPG = new[] { "PlayerA", "PlayerB", "PlayerC", "PlayerD", "PlayerE" },
-                FGPercent = new[] { "PlayerA", "PlayerB", "PlayerC", "PlayerD", "PlayerE" }
-            };
+            _teamLeadersService = teamLeadersService;
+
+        }
+        [HttpGet]
+        public IActionResult GetTeamLeaders()
+        {
+            var leaders = _teamLeadersService.GetTeamLeaders();
             return Ok(leaders);
         }
+
+
+
     }
 }

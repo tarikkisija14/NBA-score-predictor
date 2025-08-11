@@ -8,6 +8,11 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IPredictorService, PredictorService>();
+builder.Services.AddScoped<ILeagueLeadersService, LeagueLeadersService>();
+builder.Services.AddScoped<ITeamLeadersService, TeamLeadersService>();
+builder.Services.AddScoped<IStandingsService, StandingsService>();
+
+
 
 var app = builder.Build();
 
