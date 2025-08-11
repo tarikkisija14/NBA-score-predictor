@@ -47,7 +47,7 @@ model_loser_pts = RandomForestRegressor(n_estimators=50, random_state=42)
 model_loser_pts.fit(X_train, y_train_lpts)
 
 y_pred_win = model_winner.predict(X_test)
-print(f"Točnost predikcije pobjednika: {accuracy_score(y_test_win, y_pred_win):.4f}")
+print(f"Tacnost predikcije pobjednika: {accuracy_score(y_test_win, y_pred_win):.4f}")
 
 y_pred_win_pts = model_winner_pts.predict(X_test)
 print(f"MSE za poene pobjednika: {mean_squared_error(y_test_wpts, y_pred_win_pts):.3f}")
