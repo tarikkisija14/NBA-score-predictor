@@ -7,18 +7,19 @@ namespace NBA_Api.Controllers
     [Route("api/[controller]")]
     public class TeamLeadersControllers : ControllerBase
     {
-        private readonly ITeamLeadersService _teamLeadersService;
+       
+        private readonly PythonService _pythonService;
 
-        public TeamLeadersControllers(ITeamLeadersService teamLeadersService)
+        public TeamLeadersControllers(PythonService pythonService)
         {
-            _teamLeadersService = teamLeadersService;
-
+            _pythonService = pythonService;
         }
+
         [HttpGet]
         public IActionResult GetTeamLeaders()
         {
-            var leaders = _teamLeadersService.GetTeamLeaders();
-            return Ok(leaders);
+            string jsonResult = _pythonService.RunFetchData("team_leaders");
+            return Content(jsonResult, "application/json");
         }
 
 

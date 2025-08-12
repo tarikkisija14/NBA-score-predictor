@@ -11,6 +11,7 @@ builder.Services.AddScoped<IPredictorService, PredictorService>();
 builder.Services.AddScoped<ILeagueLeadersService, LeagueLeadersService>();
 builder.Services.AddScoped<ITeamLeadersService, TeamLeadersService>();
 builder.Services.AddScoped<IStandingsService, StandingsService>();
+builder.Services.AddSingleton<PythonService>();
 
 
 

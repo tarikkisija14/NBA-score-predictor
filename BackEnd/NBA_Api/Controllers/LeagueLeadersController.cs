@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NBA_Api.Services;
 
 namespace NBA_Api.Controllers
 {
@@ -6,19 +7,18 @@ namespace NBA_Api.Controllers
     [Route("api/[controller]")]
     public class LeagueLeadersController : ControllerBase
     {
+        private readonly PythonService _pythonService;
+
+        public LeagueLeadersController(PythonService pythonService)
+        {
+            _pythonService = pythonService;
+        }
+
         [HttpGet("leaders")]
        public IActionResult GetLeagueLeaders()
         {
-            var leaders = new
-            {
-                PPG = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" },
-                RPG = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" },
-                APG = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" },
-                SPG = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" },
-                BPG = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" },
-                FGPercent = new[] { "Player1", "Player2", "Player3", "Player4", "Player5" }
-            };
-            return Ok(leaders);
+            string jsonResult = _pythonService.RunFetchData("league_leaders");
+            return Content(jsonResult, "application/json");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NBA_Api.Services;
 
 namespace NBA_Api.Controllers
 {
@@ -6,17 +7,19 @@ namespace NBA_Api.Controllers
     [Route("api/controller")]
     public class StandingsController : ControllerBase
     {
-       
+        private readonly PythonService _pythonService;
+
+        public StandingsController(PythonService pythonService)
+        {
+            _pythonService = pythonService;
+        }
+
         [HttpGet]
         public IActionResult GetStandings()
        {
-            
-            var standings = new[]
-            {
-                new { Team = "Boston Celtics", Wins = 45, Losses = 20, WinPct = 0.692 },
-                new { Team = "Milwaukee Bucks", Wins = 43, Losses = 22, WinPct = 0.661 }
-            };
-            return Ok(standings);
-       }
+
+            string jsonResult = _pythonService.RunFetchData("standings");
+            return Content(jsonResult, "application/json");
+        }
     }
 }
