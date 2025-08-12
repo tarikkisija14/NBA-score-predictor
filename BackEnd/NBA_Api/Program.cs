@@ -7,12 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddScoped<IPredictorService, PredictorService>();
-builder.Services.AddScoped<ILeagueLeadersService, LeagueLeadersService>();
-builder.Services.AddScoped<ITeamLeadersService, TeamLeadersService>();
-builder.Services.AddScoped<IStandingsService, StandingsService>();
+
 builder.Services.AddSingleton<PythonService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy => policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
 
 
 var app = builder.Build();
@@ -23,7 +28,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+
+
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularApp");
 
 app.UseAuthorization();
 

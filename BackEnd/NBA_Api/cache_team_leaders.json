@@ -1,0 +1,50 @@
+{
+  "PTS": [
+    {
+      "team": "Indiana Pacers",
+      "value": 25.8
+    },
+    {
+      "team": "Minnesota Timberwolves",
+      "value": 25.6
+    },
+    {
+      "team": "Philadelphia 76ers",
+      "value": 24.5
+    },
+    {
+      "team": "Memphis Grizzlies",
+      "value": 23.6
+    },
+    {
+      "team": "New York Knicks",
+      "value": 23.0
+    }
+  ],
+  "REB": [
+    {
+      "team": "Miami Heat",
+      "value": 22.6
+    },
+    {
+      "team": "Cleveland Cavaliers",
+      "value": 22.4
+    },
+    {
+      "team": "Golden State Warriors",
+      "value": 22.1
+    },
+    {
+      "team": "Minnesota Timberwolves",
+      "value": 21.2
+    },
+    {
+      "team": "Boston Celtics",
+      "value": 21.0
+    }
+  ],
+  "AST": [],
+  "STL": [],
+  "BLK": [],
+  "FG_PCT": []
+}

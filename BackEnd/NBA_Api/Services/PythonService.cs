@@ -10,18 +10,19 @@ namespace NBA_Api.Services
 
         public PythonService(IConfiguration config)
         {
-            _pytonpath = config["Python:path"] ?? "python";
-            _scriptpath = config["Python:FetchDataScript"]?? "PythonScripts/fetch_data.py";
+            _pytonpath = config["PythonSettings:PythonPath"] ?? "python";
+            _scriptpath = config["PythonSettings:ScriptPath"] ?? "PythonScripts/fetch_data.py";
         }
         public string RunFetchData(string command)
         {
             var psi = new ProcessStartInfo
             {
                 FileName = _pytonpath,
-                Arguments = $"{_scriptpath}{command}",
+                Arguments = $"\"{_scriptpath}\" {command}",
                 RedirectStandardOutput = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
+                RedirectStandardError = true,
             };
             
             using var process=Process.Start(psi);
@@ -30,10 +31,16 @@ namespace NBA_Api.Services
                 return string.Empty;
             }
 
-            using var reader = process.StandardOutput;
-            string result=reader.ReadToEnd();
+            string result = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
 
             process.WaitForExit();
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                return $"ERROR: {error}";
+            }
+
             return result;
 
         }

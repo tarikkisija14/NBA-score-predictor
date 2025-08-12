@@ -14,10 +14,13 @@ namespace NBA_Api.Controllers
             _pythonService = pythonService;
         }
 
-        [HttpGet("leaders")]
+        [HttpGet]
        public IActionResult GetLeagueLeaders()
         {
             string jsonResult = _pythonService.RunFetchData("league_leaders");
+            if (string.IsNullOrWhiteSpace(jsonResult))
+                return StatusCode(500, "Failed to fetch league leaders data");
+
             return Content(jsonResult, "application/json");
         }
     }

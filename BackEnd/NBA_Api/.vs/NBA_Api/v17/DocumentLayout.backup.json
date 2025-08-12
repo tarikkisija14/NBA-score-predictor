@@ -5,6 +5,22 @@
     {
       "AbsoluteMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|c:\\users\\tarik\\desktop\\nba score predictor\\backend\\nba_api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|c:\\users\\tarik\\desktop\\nba score predictor\\backend\\nba_api\\controllers\\leagueleaderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|solutionrelative:controllers\\leagueleaderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|c:\\users\\tarik\\desktop\\nba score predictor\\backend\\nba_api\\controllers\\standingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|solutionrelative:controllers\\standingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|c:\\users\\tarik\\desktop\\nba score predictor\\backend\\nba_api\\controllers\\teamleaderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|solutionrelative:controllers\\teamleaderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|c:\\users\\tarik\\desktop\\nba score predictor\\backend\\nba_api\\services\\pythonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|solutionrelative:services\\pythonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,11 +42,63 @@
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Program.cs*",
+              "RelativeToolTip": "Program.cs*",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-11T21:21:55.982Z",
+              "WhenOpened": "2025-08-12T15:51:06.468Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LeagueLeadersController.cs",
+              "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\LeagueLeadersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LeagueLeadersController.cs",
+              "ToolTip": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\LeagueLeadersController.cs",
+              "RelativeToolTip": "Controllers\\LeagueLeadersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T15:50:53.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StandingsController.cs",
+              "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\StandingsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\StandingsController.cs",
+              "ToolTip": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\StandingsController.cs",
+              "RelativeToolTip": "Controllers\\StandingsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T15:50:52.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TeamLeadersController.cs",
+              "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\TeamLeadersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TeamLeadersController.cs",
+              "ToolTip": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\TeamLeadersController.cs",
+              "RelativeToolTip": "Controllers\\TeamLeadersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T15:50:51.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PythonService.cs",
+              "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Services\\PythonService.cs",
+              "RelativeDocumentMoniker": "Services\\PythonService.cs",
+              "ToolTip": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Services\\PythonService.cs",
+              "RelativeToolTip": "Services\\PythonService.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T15:49:51.648Z",
               "EditorCaption": ""
             }
           ]
