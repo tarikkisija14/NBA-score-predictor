@@ -13,14 +13,37 @@ __pycache__/
 *.joblib
 *.pkl
 
-# --- Angular / Node ---
-node_modules/
-dist/
-out-tsc/
-.angular/
-package-lock.json
-yarn.lock
+# Angular
+/dist
+/tmp
+/out-tsc
+/.angular/cache
 
+# IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Test files
+/coverage
+*.junit.xml
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
 # --- C# / .NET ---
 bin/
 obj/
@@ -445,4 +468,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
 
