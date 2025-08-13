@@ -12,6 +12,7 @@
 ✅ **NBA Standings** – current standings for all teams  
 ✅ **NBA League Leaders** – top players in the league by various stats  
 ✅ **NBA Team League Leaders** – top teams in the league by various stats 
+
 ✅ **AI Game Predictor** – select 2 teams and get predicted scores for both sides  
 
 ---
