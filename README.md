@@ -1,2 +1,28 @@
-# NBA-score-predictor
-Machine learning project for predicting NBA game outcomes and box score statistics from NBA API datasets
+<h1 align="center">🏀 NBA Stats & AI Game Predictor</h1>
+
+<p align="center">
+  A full-stack web app that combines live NBA statistics with AI-powered game score prediction.  
+  Built with <strong>Angular</strong>, <strong>ASP.NET Core</strong>, <strong>Python (nba_api)</strong>, and a custom-trained <strong>Machine Learning</strong> model.
+</p>
+
+---
+
+## 📌 Features
+
+✅ **NBA Standings** – current standings for all teams  
+✅ **NBA League Leaders** – top players in the league by various stats  
+✅ **NBA Team League Leaders** – top teams in the league by various stats 
+✅ **AI Game Predictor** – select 2 teams and get predicted scores for both sides  
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer          | Technology |
+|----------------|------------|
+| **Frontend**   | Angular    |
+| **Backend**    | ASP.NET Core |
+| **API & Data** | Python, nba_api |
+| **AI Model**   | Scikit-learn, Pandas, NumPy |
+| **Data Format**| REST API, JSON |
+
