@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-league-leaders',
@@ -6,6 +8,6 @@ import { Component } from '@angular/core';
   templateUrl: './league-leaders.html',
   styleUrl: './league-leaders.css'
 })
-export class LeagueLeaders {
+export class LeagueLeadersComponent {
 
 }
