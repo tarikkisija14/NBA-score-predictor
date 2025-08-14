@@ -1,0 +1,19 @@
+#team-leaders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+.leaders-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.leader-box {
+  border: 1px solid #ddd;
+  padding: 2rem;
+  border-radius: 5px;
+  box-sizing: border-box;
+}

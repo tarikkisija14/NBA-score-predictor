@@ -1,0 +1,41 @@
+.standings {
+  text-align: center;
+}
+.conference-toggle {
+  margin-bottom: 1rem;
+}
+.conference-toggle button {
+  background-color: #c8102e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.conference-toggle button.active {
+  background-color: #a10d24;
+}
+.conference {
+  width: 100%;
+}
+.conference h2 {
+  text-align: center;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+th {
+  background-color: #f4f4f4;
+}
+.team-logo {
+  width: 30px;
+  height: 30px;
+}

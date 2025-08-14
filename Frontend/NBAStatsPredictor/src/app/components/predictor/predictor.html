@@ -1,1 +1,37 @@
-<p>predictor works!</p>
+<div class="predictor">
+  <h2>NBA Game Predictor</h2>
+
+  <div class="team-selector">
+
+    <div class="team-picker">
+      <button class="arrow-button" (click)="prevTeam1()">&#9650;</button>
+      <div class="team-circle">
+        <img [src]="team1Logo" [alt]="team1Name">
+        <p>{{ team1Name }}</p>
+      </div>
+      <button class="arrow-button" (click)="nextTeam1()">&#9660;</button>
+    </div>
+
+
+    <button class="predict-button"
+            (click)="predict()"
+            [disabled]="loading || team1Index === team2Index">
+      {{ loading ? 'Predicting...' : 'Predict' }}
+    </button>
+
+
+    <div class="team-picker">
+      <button class="arrow-button" (click)="prevTeam2()">&#9650;</button>
+      <div class="team-circle">
+        <img [src]="team2Logo" [alt]="team2Name">
+        <p>{{ team2Name }}</p>
+      </div>
+      <button class="arrow-button" (click)="nextTeam2()">&#9660;</button>
+    </div>
+  </div>
+
+
+  <div id="prediction-result" *ngIf="predictionResult">
+    {{ predictionResult }}
+  </div>
+</div>

@@ -1,12 +1,27 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {StandingsComponent} from './components/standings/standings';
+import {LeagueLeadersComponent} from './components/league-leaders/league-leaders';
+import {TeamLeadersComponent} from './components/team-leaders/team-leaders';
+import {PredictorComponent} from './components/predictor/predictor';
+import {NgIf} from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [
+    StandingsComponent,
+    LeagueLeadersComponent,
+    TeamLeadersComponent,
+    PredictorComponent,
+    NgIf
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('NBAStatsPredictor');
+  activeSection: string = 'standings';
+
+  showSection(sectionId: string) {
+    this.activeSection = sectionId;
+  }
 }
