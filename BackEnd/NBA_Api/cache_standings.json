@@ -2,17 +2,6 @@
   "east": [],
   "west": [
     {
-      "team": "Thunder",
-      "wins": 68,
-      "losses": 14,
-      "pct": 0.829,
-      "gb": "35-6",
-      "home": "8-2",
-      "away": "9-1",
-      "div": "0-1",
-      "conf": "1-4"
-    },
-    {
       "team": "Cavaliers",
       "wins": 64,
       "losses": 18,
@@ -24,15 +13,15 @@
       "conf": "5-4"
     },
     {
-      "team": "Rockets",
-      "wins": 52,
-      "losses": 30,
-      "pct": 0.634,
-      "gb": "29-12",
+      "team": "Thunder",
+      "wins": 68,
+      "losses": 14,
+      "pct": 0.829,
+      "gb": "35-6",
       "home": "8-2",
-      "away": "6-4",
-      "div": "3-1",
-      "conf": "8-5"
+      "away": "9-1",
+      "div": "0-1",
+      "conf": "1-4"
     },
     {
       "team": "Celtics",
@@ -46,15 +35,15 @@
       "conf": "8-3"
     },
     {
-      "team": "Knicks",
-      "wins": 51,
-      "losses": 31,
-      "pct": 0.622,
-      "gb": "27-14",
-      "home": "6-4",
-      "away": "5-5",
-      "div": "6-2",
-      "conf": "7-3"
+      "team": "Rockets",
+      "wins": 52,
+      "losses": 30,
+      "pct": 0.634,
+      "gb": "29-12",
+      "home": "8-2",
+      "away": "6-4",
+      "div": "3-1",
+      "conf": "8-5"
     },
     {
       "team": "Lakers",
@@ -66,6 +55,17 @@
       "away": "4-6",
       "div": "1-1",
       "conf": "4-6"
+    },
+    {
+      "team": "Knicks",
+      "wins": 51,
+      "losses": 31,
+      "pct": 0.622,
+      "gb": "27-14",
+      "home": "6-4",
+      "away": "5-5",
+      "div": "6-2",
+      "conf": "7-3"
     },
     {
       "team": "Pacers",
@@ -90,17 +90,6 @@
       "conf": "8-6"
     },
     {
-      "team": "Bucks",
-      "wins": 48,
-      "losses": 34,
-      "pct": 0.585,
-      "gb": "27-14",
-      "home": "6-4",
-      "away": "6-4",
-      "div": "3-0",
-      "conf": "5-9"
-    },
-    {
       "team": "Clippers",
       "wins": 50,
       "losses": 32,
@@ -110,6 +99,17 @@
       "away": "7-3",
       "div": "3-2",
       "conf": "5-7"
+    },
+    {
+      "team": "Bucks",
+      "wins": 48,
+      "losses": 34,
+      "pct": 0.585,
+      "gb": "27-14",
+      "home": "6-4",
+      "away": "6-4",
+      "div": "3-0",
+      "conf": "5-9"
     },
     {
       "team": "Pistons",
@@ -178,17 +178,6 @@
       "conf": "8-6"
     },
     {
-      "team": "Kings",
-      "wins": 40,
-      "losses": 42,
-      "pct": 0.488,
-      "gb": "20-21",
-      "home": "4-6",
-      "away": "3-7",
-      "div": "3-4",
-      "conf": "4-9"
-    },
-    {
       "team": "Bulls",
       "wins": 39,
       "losses": 43,
@@ -200,15 +189,15 @@
       "conf": "6-4"
     },
     {
-      "team": "Heat",
-      "wins": 37,
-      "losses": 45,
-      "pct": 0.451,
-      "gb": "19-22",
+      "team": "Kings",
+      "wins": 40,
+      "losses": 42,
+      "pct": 0.488,
+      "gb": "20-21",
       "home": "4-6",
-      "away": "4-6",
-      "div": "3-5",
-      "conf": "3-11"
+      "away": "3-7",
+      "div": "3-4",
+      "conf": "4-9"
     },
     {
       "team": "Mavericks",
@@ -222,15 +211,15 @@
       "conf": "5-8"
     },
     {
-      "team": "Raptors",
-      "wins": 30,
-      "losses": 52,
-      "pct": 0.366,
-      "gb": "18-23",
-      "home": "5-5",
+      "team": "Heat",
+      "wins": 37,
+      "losses": 45,
+      "pct": 0.451,
+      "gb": "19-22",
+      "home": "4-6",
       "away": "4-6",
-      "div": "1-4",
-      "conf": "7-9"
+      "div": "3-5",
+      "conf": "3-11"
     },
     {
       "team": "Suns",
@@ -242,6 +231,17 @@
       "away": "1-9",
       "div": "2-4",
       "conf": "7-5"
+    },
+    {
+      "team": "Raptors",
+      "wins": 30,
+      "losses": 52,
+      "pct": 0.366,
+      "gb": "18-23",
+      "home": "5-5",
+      "away": "4-6",
+      "div": "1-4",
+      "conf": "7-9"
     },
     {
       "team": "Trail Blazers",
@@ -266,17 +266,6 @@
       "conf": "8-7"
     },
     {
-      "team": "Spurs",
-      "wins": 34,
-      "losses": 48,
-      "pct": 0.415,
-      "gb": "20-20",
-      "home": "5-5",
-      "away": "3-7",
-      "div": "1-1",
-      "conf": "7-7"
-    },
-    {
       "team": "76ers",
       "wins": 24,
       "losses": 58,
@@ -286,6 +275,17 @@
       "away": "2-8",
       "div": "2-3",
       "conf": "4-4"
+    },
+    {
+      "team": "Spurs",
+      "wins": 34,
+      "losses": 48,
+      "pct": 0.415,
+      "gb": "20-20",
+      "home": "5-5",
+      "away": "3-7",
+      "div": "1-1",
+      "conf": "7-7"
     },
     {
       "team": "Hornets",

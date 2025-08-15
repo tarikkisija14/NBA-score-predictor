@@ -20,10 +20,15 @@ namespace NBA_Api.Controllers
             string jsonResult = _pythonService.RunFetchData("standings");
 
             if (string.IsNullOrWhiteSpace(jsonResult))
-                return StatusCode(500, "Failed to fetch standings from Python script");
+            {
+                return StatusCode(500, new
+                {
+                    error = "Python script returned empty response",
+                    solution = "Check backend console for Python errors"
+                });
+            }
 
             return Content(jsonResult, "application/json");
-
         }
     }
 }

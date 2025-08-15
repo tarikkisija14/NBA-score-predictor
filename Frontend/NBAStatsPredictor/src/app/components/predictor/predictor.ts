@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {NgIf} from '@angular/common';
 
 interface Team {
   name: string;
@@ -9,7 +10,9 @@ interface Team {
 
 @Component({
   selector: 'app-predictor',
-  imports: [],
+  imports: [
+    NgIf
+  ],
   templateUrl: './predictor.html',
   styleUrl: './predictor.css',
   standalone: true,

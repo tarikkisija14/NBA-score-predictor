@@ -1,7 +1,7 @@
 import sys
 import json
 from nba_api.stats.endpoints import leaguestandingsv3, leagueleaders, teamdashboardbygeneralsplits
-from nba_api.stats.static import teams
+
 import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -13,41 +13,47 @@ CACHE_FILES = {
     "league_leaders": "cache_league_leaders.json",
     "team_leaders": "cache_team_leaders.json"
 }
+ASSETS_PATH = r"C:\Users\tarik\Desktop\nba score predictor\Frontend\NBAStatsPredictor\src\assets"
+
+
+from nba_api.stats.static import teams
 
 def get_standings():
-    cache_file = CACHE_FILES["standings"]
+    data = leaguestandingsv3.LeagueStandingsV3().get_dict()
+    rows = data['resultSets'][0]['rowSet']
 
-    cached = read_cache(cache_file)
-    if cached:
-        return cached
+    east = []
+    west = []
 
-    try:
-        standings = leaguestandingsv3.LeagueStandingsV3().get_dict()
-        east = []
-        west = []
+    for team in rows:
+        team_name = team[4]
 
-        for team in standings['resultSets'][0]['rowSet']:
-            team_data = {
-                "team": team[4],
-                "wins": team[13],
-                "losses": team[14],
-                "pct": team[15],
-                "gb": team[18],
-                "home": team[21],
-                "away": team[22],
-                "div": team[23],
-                "conf": team[24]
-            }
-            if team[5] == "East":
-                east.append(team_data)
-            else:
-                west.append(team_data)
+        logo_filename = f"{team_name.lower().replace(' ', '')}.png"
 
-        result = {"east": east, "west": west}
-        write_cache(cache_file, result)
-        return result
-    except Exception as e:
-        return cached if cached else {"error": str(e)}
+        logo_path = f"{ASSETS_PATH}\\{logo_filename}"
+
+    for team in rows:
+        team_info = {
+            "team": team[4],
+            "wins": team[13],
+            "losses": team[14],
+            "pct": team[15],
+            "home": team[18],
+            "away": team[19],
+            "div": team[23],
+            "conf": team[24]
+        }
+        if team[6] == "East":
+            east.append(team_info)
+        elif team[6] == "West":
+            west.append(team_info)
+
+    return {"east": east, "west": west}
+
+
+
+
+
 
 
 def fetch_league_category(stat):

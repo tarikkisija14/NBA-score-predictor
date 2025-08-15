@@ -10,17 +10,21 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<PythonService>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngularApp",
-        policy => policy
-            .WithOrigins("http://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod());
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowAngular", builder => builder  
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
 });
 
 
+
 var app = builder.Build();
+
+app.UseRouting();
+app.UseCors("AllowAngular");
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -30,9 +34,9 @@ if (app.Environment.IsDevelopment())
 
 
 
+
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAngularApp");
 
 app.UseAuthorization();
 

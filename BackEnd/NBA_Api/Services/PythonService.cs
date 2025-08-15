@@ -5,44 +5,57 @@ namespace NBA_Api.Services
 {
     public class PythonService
     {
-        private readonly string _pytonpath;
-        private readonly string _scriptpath;
+        private readonly string _pythonPath;
+        private readonly string _scriptPath;
 
         public PythonService(IConfiguration config)
         {
-            _pytonpath = config["PythonSettings:PythonPath"] ?? "python";
-            _scriptpath = config["PythonSettings:ScriptPath"] ?? "PythonScripts/fetch_data.py";
+            _pythonPath = config["PythonSettings:PythonPath"];
+            _scriptPath = config["PythonSettings:ScriptPath"];
         }
-        public string RunFetchData(string command)
+        public string RunFetchData(string scriptType)
         {
-            var psi = new ProcessStartInfo
+            try
             {
-                FileName = _pytonpath,
-                Arguments = $"\"{_scriptpath}\" {command}",
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                RedirectStandardError = true,
-            };
-            
-            using var process=Process.Start(psi);
-            if(process == null)
-            {
-                return string.Empty;
+                if (!File.Exists(_scriptPath))
+                {
+                    Console.WriteLine($" Script not found at {_scriptPath}");
+                    return null;
+                }
+
+                var psi = new ProcessStartInfo
+                {
+                    FileName = _pythonPath,
+                    Arguments = $"\"{_scriptPath}\" {scriptType}",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using var process = new Process { StartInfo = psi };
+                process.Start();
+
+                string output = process.StandardOutput.ReadToEnd();
+                string error = process.StandardError.ReadToEnd();
+
+                process.WaitForExit();
+
+
+                if (!string.IsNullOrEmpty(error))
+                {
+                    Console.WriteLine($" Python Error:\n{error}");
+                    return null;
+                }
+
+                Console.WriteLine($" Script output ({output.Length} chars)");
+                return output;
             }
-
-            string result = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-
-            process.WaitForExit();
-
-            if (!string.IsNullOrEmpty(error))
+            catch (Exception ex)
             {
-                return $"ERROR: {error}";
+                Console.WriteLine($" Process Error: {ex}");
+                return null;
             }
-
-            return result;
-
         }
 
 

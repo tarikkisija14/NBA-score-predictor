@@ -1,31 +1,4 @@
 {
-  "PTS": [
-    {
-      "player": "Shai Gilgeous-Alexander",
-      "team": "OKC",
-      "value": 2.4
-    },
-    {
-      "player": "Giannis Antetokounmpo",
-      "team": "MIL",
-      "value": 3.1
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 3.3
-    },
-    {
-      "player": "Anthony Edwards",
-      "team": "MIN",
-      "value": 3.2
-    },
-    {
-      "player": "Jayson Tatum",
-      "team": "BOS",
-      "value": 2.9
-    }
-  ],
   "REB": [
     {
       "player": "Domantas Sabonis",
@@ -80,9 +53,58 @@
       "value": 1.7
     }
   ],
-  "FG_PCT": [
+  "PTS": [
     {
-      "error": "Expecting value: line 1 column 1 (char 0)"
+      "player": "Shai Gilgeous-Alexander",
+      "team": "OKC",
+      "value": 2.4
+    },
+    {
+      "player": "Giannis Antetokounmpo",
+      "team": "MIL",
+      "value": 3.1
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 3.3
+    },
+    {
+      "player": "Anthony Edwards",
+      "team": "MIN",
+      "value": 3.2
+    },
+    {
+      "player": "Jayson Tatum",
+      "team": "BOS",
+      "value": 2.9
+    }
+  ],
+  "AST": [
+    {
+      "player": "Trae Young",
+      "team": "ATL",
+      "value": 11.6
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 10.2
+    },
+    {
+      "player": "Tyrese Haliburton",
+      "team": "IND",
+      "value": 9.2
+    },
+    {
+      "player": "Cade Cunningham",
+      "team": "DET",
+      "value": 9.1
+    },
+    {
+      "player": "James Harden",
+      "team": "LAC",
+      "value": 8.7
     }
   ],
   "BLK": [
@@ -112,31 +134,9 @@
       "value": 1.6
     }
   ],
-  "AST": [
+  "FG_PCT": [
     {
-      "player": "Trae Young",
-      "team": "ATL",
-      "value": 11.6
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 10.2
-    },
-    {
-      "player": "Tyrese Haliburton",
-      "team": "IND",
-      "value": 9.2
-    },
-    {
-      "player": "Cade Cunningham",
-      "team": "DET",
-      "value": 9.1
-    },
-    {
-      "player": "James Harden",
-      "team": "LAC",
-      "value": 8.7
+      "error": "Expecting value: line 1 column 1 (char 0)"
     }
   ]
 }
