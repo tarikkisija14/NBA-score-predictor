@@ -1,24 +1,21 @@
+from nba_api.stats.static import teams
 from nba_api.stats.endpoints import leaguestandingsv3
-import json
 
+# Dohvati sve timove iz NBA static module
+all_teams = teams.get_teams()
+nickname_to_id = {t['nickname'].lower(): t['id'] for t in all_teams}
 
-def inspect_league_standings():
-    standings = leaguestandingsv3.LeagueStandingsV3().get_dict()
+# Dohvati standings
+standings_data = leaguestandingsv3.LeagueStandingsV3().get_dict()
+rows = standings_data['resultSets'][0]['rowSet']
 
-    headers = standings['resultSets'][0]['headers']
-    rows = standings['resultSets'][0]['rowSet']
+print("=== API team[4] vs nickname from static teams ===")
+for team in rows:
+    api_name = team[4]  # ovo je ime iz API standings
+    api_name_lower = api_name.lower()
+    mapped_id = nickname_to_id.get(api_name_lower, "NOT FOUND")
+    print(f"API team[4]: '{api_name}' | mapped nickname: '{mapped_id}'")
 
-    print(f"Broj timova: {len(rows)}\n")
-    print("Headers:")
-    print(headers)
-    print("\nPrimjer prvog tima:")
-    print(json.dumps(rows[0], indent=2))
-
-    # Ako želiš sve timove:
-    print("\nSvi timovi i njihova polja:")
-    for team in rows:
-        print(json.dumps(team, indent=2))
-
-
-if __name__ == "__main__":
-    inspect_league_standings()
+print("\n=== All static team nicknames ===")
+for t in all_teams:
+    print(f"Nickname: '{t['nickname']}' | id: {t['id']}")

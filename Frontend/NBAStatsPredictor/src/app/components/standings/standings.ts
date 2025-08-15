@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Standings } from '../../services/standings';
 
 interface TeamRow {
+  logo: string;
   team: string;
   wins: number;
   losses: number;
@@ -45,6 +46,7 @@ export class StandingsComponent implements OnInit {
 
     this.standingsService.getStandings().subscribe({
       next: (response: StandingsData) => {
+
         this.east = response.east || [];
         this.west = response.west || [];
         this.loading = false;
@@ -56,6 +58,7 @@ export class StandingsComponent implements OnInit {
       }
     });
   }
+
 
   setConference(side: 'east' | 'west') {
     this.activeConference = side;

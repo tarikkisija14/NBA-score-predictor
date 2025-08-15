@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let team of east; trackBy: trackByTeam">
-          <td><img src="placeholder-logo.png" class="team-logo" alt="{{ team.team }} Logo"></td>
+          <td><img [src]="team.logo" alt="{{ team.team }} Logo" class="team-logo"></td>
           <td>{{ team.team }}</td>
           <td>{{ team.wins }}</td>
           <td>{{ team.losses }}</td>
@@ -64,7 +64,8 @@
         </thead>
         <tbody>
         <tr *ngFor="let team of west; trackBy: trackByTeam">
-          <td><img src="placeholder-logo.png" class="team-logo" alt="{{ team.team }} Logo"></td>
+          <td><img [src]="team.logo" alt="{{ team.team }} Logo" class="team-logo"></td>
+
           <td>{{ team.team }}</td>
           <td>{{ team.wins }}</td>
           <td>{{ team.losses }}</td>

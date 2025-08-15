@@ -1,56 +1,7 @@
 {
-  "REB": [
+  "FG_PCT": [
     {
-      "player": "Domantas Sabonis",
-      "team": "SAC",
-      "value": 13.9
-    },
-    {
-      "player": "Karl-Anthony Towns",
-      "team": "NYK",
-      "value": 12.8
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 12.7
-    },
-    {
-      "player": "Ivica Zubac",
-      "team": "LAC",
-      "value": 12.6
-    },
-    {
-      "player": "Walker Kessler",
-      "team": "UTA",
-      "value": 12.2
-    }
-  ],
-  "STL": [
-    {
-      "player": "Dyson Daniels",
-      "team": "ATL",
-      "value": 3.0
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 1.8
-    },
-    {
-      "player": "Cason Wallace",
-      "team": "OKC",
-      "value": 1.8
-    },
-    {
-      "player": "Kris Dunn",
-      "team": "LAC",
-      "value": 1.7
-    },
-    {
-      "player": "Shai Gilgeous-Alexander",
-      "team": "OKC",
-      "value": 1.7
+      "error": "Expecting value: line 1 column 1 (char 0)"
     }
   ],
   "PTS": [
@@ -107,6 +58,60 @@
       "value": 8.7
     }
   ],
+  "STL": [
+    {
+      "player": "Dyson Daniels",
+      "team": "ATL",
+      "value": 3.0
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 1.8
+    },
+    {
+      "player": "Cason Wallace",
+      "team": "OKC",
+      "value": 1.8
+    },
+    {
+      "player": "Kris Dunn",
+      "team": "LAC",
+      "value": 1.7
+    },
+    {
+      "player": "Shai Gilgeous-Alexander",
+      "team": "OKC",
+      "value": 1.7
+    }
+  ],
+  "REB": [
+    {
+      "player": "Domantas Sabonis",
+      "team": "SAC",
+      "value": 13.9
+    },
+    {
+      "player": "Karl-Anthony Towns",
+      "team": "NYK",
+      "value": 12.8
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 12.7
+    },
+    {
+      "player": "Ivica Zubac",
+      "team": "LAC",
+      "value": 12.6
+    },
+    {
+      "player": "Walker Kessler",
+      "team": "UTA",
+      "value": 12.2
+    }
+  ],
   "BLK": [
     {
       "player": "Victor Wembanyama",
@@ -132,11 +137,6 @@
       "player": "Donovan Clingan",
       "team": "POR",
       "value": 1.6
-    }
-  ],
-  "FG_PCT": [
-    {
-      "error": "Expecting value: line 1 column 1 (char 0)"
     }
   ]
 }
