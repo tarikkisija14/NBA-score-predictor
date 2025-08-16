@@ -43,8 +43,71 @@
       "value": 21.4
     }
   ],
-  "AST": [],
-  "STL": [],
-  "BLK": [],
+  "AST": [
+    {
+      "team": "Indiana Pacers",
+      "value": 21.6
+    },
+    {
+      "team": "New Orleans Pelicans",
+      "value": 18.6
+    },
+    {
+      "team": "Atlanta Hawks",
+      "value": 18.6
+    },
+    {
+      "team": "Milwaukee Bucks",
+      "value": 17.6
+    },
+    {
+      "team": "Cleveland Cavaliers",
+      "value": 17.0
+    }
+  ],
+  "STL": [
+    {
+      "team": "Minnesota Timberwolves",
+      "value": 11.8
+    },
+    {
+      "team": "Memphis Grizzlies",
+      "value": 11.1
+    },
+    {
+      "team": "Chicago Bulls",
+      "value": 10.8
+    },
+    {
+      "team": "Brooklyn Nets",
+      "value": 10.6
+    },
+    {
+      "team": "Houston Rockets",
+      "value": 10.4
+    }
+  ],
+  "BLK": [
+    {
+      "team": "New Orleans Pelicans",
+      "value": 7.8
+    },
+    {
+      "team": "Dallas Mavericks",
+      "value": 6.4
+    },
+    {
+      "team": "Philadelphia 76ers",
+      "value": 6.0
+    },
+    {
+      "team": "Minnesota Timberwolves",
+      "value": 5.8
+    },
+    {
+      "team": "Chicago Bulls",
+      "value": 5.6
+    }
+  ],
   "FG_PCT": []
 }

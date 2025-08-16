@@ -63,6 +63,7 @@ def get_standings():
 
 def fetch_league_category(stat):
     try:
+
         leaders = leagueleaders.LeagueLeaders(
             stat_category_abbreviation=stat,
             per_mode48="PerGame",
@@ -87,8 +88,13 @@ def fetch_league_category(stat):
                 "value": row[stat_index(stat)]
             })
         return stat, players
+
     except Exception as e:
         return stat, [{"error": str(e)}]
+
+
+
+
 
 
 
@@ -99,13 +105,14 @@ def get_league_leaders():
     if cached:
         return cached
 
+    # Izbacili smo FG_PCT i stavili FT_PCT
     categories = {
         "PTS": "Points Per Game",
         "REB": "Total Rebounds Per Game",
         "AST": "Assists Per Game",
         "STL": "Steals Per Game",
         "BLK": "Blocks Per Game",
-        "FG_PCT": "Field Goal Percentage"
+        "MIN": "Minutes Per Game"
     }
 
     results = {}
@@ -122,14 +129,15 @@ def get_league_leaders():
         return cached if cached else {"error": str(e)}
 
 
+
 def stat_index(stat):
     mapping = {
-        "PTS": 22,
+        "PTS": 24,
         "REB": 18,
         "AST": 19,
         "STL": 20,
         "BLK": 21,
-        "FG_PCT": 8
+        "MIN": 6
     }
     return mapping[stat]
 
@@ -198,12 +206,12 @@ def stat_index_team(stat):
 
 
 def read_cache(file_path):
-    if os.path.exists(file_path) and (time.time() - os.path.getmtime(file_path) < CACHE_DURATION):
-        try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except:
-            return None
+    #if os.path.exists(file_path) and (time.time() - os.path.getmtime(file_path) < CACHE_DURATION):
+        #try:
+            #with open(file_path, "r", encoding="utf-8") as f:
+                #return json.load(f)
+        #except:
+            #return None
     return None
 
 

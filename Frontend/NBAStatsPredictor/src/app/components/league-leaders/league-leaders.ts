@@ -24,7 +24,7 @@ export class LeagueLeadersComponent implements OnInit {
     { key: 'REB', label: 'Rebounds Per Game (RPG)' },
     { key: 'STL', label: 'Steals Per Game (SPG)' },
     { key: 'BLK', label: 'Blocks Per Game (BPG)' },
-    { key: 'FG_PCT', label: 'Field Goal % (FG%)' }
+    { key: 'MIN', label: 'Minutes Per Game (MIN)' }
   ];
 
   constructor(private leadersService: LeagueLeaders) {}

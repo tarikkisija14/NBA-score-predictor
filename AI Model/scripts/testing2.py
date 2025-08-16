@@ -1,21 +1,11 @@
-from nba_api.stats.static import teams
-from nba_api.stats.endpoints import leaguestandingsv3
+from nba_api.stats.endpoints import leagueleaders
 
-# Dohvati sve timove iz NBA static module
-all_teams = teams.get_teams()
-nickname_to_id = {t['nickname'].lower(): t['id'] for t in all_teams}
+data = leagueleaders.LeagueLeaders(
+    stat_category_abbreviation="PTS",
+    per_mode48="PerGame",
+    season="2024-25",
+    season_type_all_star="Regular Season"
+).get_dict()
 
-# Dohvati standings
-standings_data = leaguestandingsv3.LeagueStandingsV3().get_dict()
-rows = standings_data['resultSets'][0]['rowSet']
-
-print("=== API team[4] vs nickname from static teams ===")
-for team in rows:
-    api_name = team[4]  # ovo je ime iz API standings
-    api_name_lower = api_name.lower()
-    mapped_id = nickname_to_id.get(api_name_lower, "NOT FOUND")
-    print(f"API team[4]: '{api_name}' | mapped nickname: '{mapped_id}'")
-
-print("\n=== All static team nicknames ===")
-for t in all_teams:
-    print(f"Nickname: '{t['nickname']}' | id: {t['id']}")
+print(data['resultSet']['headers'])
+print(data['resultSet']['rowSet'][:5])
