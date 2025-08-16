@@ -10,77 +10,80 @@
   <div *ngIf="!loading && !error">
     <div class="conference" *ngIf="activeConference === 'east'">
       <h2>Eastern Conference</h2>
-      <table>
-        <thead>
-        <tr>
-          <th>Logo</th>
-          <th>Team</th>
-          <th>W</th>
-          <th>L</th>
-          <th>PCT</th>
-          <th>GB</th>
-          <th>CONF</th>
-          <th>HOME</th>
-          <th>AWAY</th>
-          <th>Div</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let team of east; trackBy: trackByTeam">
-          <td><img [src]="team.logo" alt="{{ team.team }} Logo" class="team-logo"></td>
-          <td>{{ team.team }}</td>
-          <td>{{ team.wins }}</td>
-          <td>{{ team.losses }}</td>
-          <td>{{ team.pct | number:'1.3-3' }}</td>
-          <td>{{ team.gb }}</td>
-          <td>{{ team.conf }}</td>
-          <td>{{ team.home }}</td>
-          <td>{{ team.away }}</td>
-          <td>{{ team.div }}</td>
-        </tr>
-        <tr *ngIf="east.length === 0">
-          <td colspan="10">No data available for Eastern Conference</td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Team</th>
+            <th>W</th>
+            <th>L</th>
+            <th>PCT</th>
+            <th>GB</th>
+            <th>CONF</th>
+            <th>HOME</th>
+            <th>AWAY</th>
+            <th>Div</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let team of east; trackBy: trackByTeam">
+            <td><img [src]="team.logo" alt="{{ team.team }} Logo" class="team-logo"></td>
+            <td class="team-name">{{ team.team }}</td>
+            <td>{{ team.wins }}</td>
+            <td>{{ team.losses }}</td>
+            <td>{{ team.pct | number:'1.3-3' }}</td>
+            <td>{{ team.gb }}</td>
+            <td>{{ team.conf }}</td>
+            <td>{{ team.home }}</td>
+            <td>{{ team.away }}</td>
+            <td>{{ team.div }}</td>
+          </tr>
+          <tr *ngIf="east.length === 0">
+            <td colspan="10">No data available for Eastern Conference</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="conference" *ngIf="activeConference === 'west'">
       <h2>Western Conference</h2>
-      <table>
-        <thead>
-        <tr>
-          <th>Logo</th>
-          <th>Team</th>
-          <th>W</th>
-          <th>L</th>
-          <th>PCT</th>
-          <th>GB</th>
-          <th>CONF</th>
-          <th>HOME</th>
-          <th>AWAY</th>
-          <th>Div</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let team of west; trackBy: trackByTeam">
-          <td><img [src]="team.logo" alt="{{ team.team }} Logo" class="team-logo"></td>
-
-          <td>{{ team.team }}</td>
-          <td>{{ team.wins }}</td>
-          <td>{{ team.losses }}</td>
-          <td>{{ team.pct | number:'1.3-3' }}</td>
-          <td>{{ team.gb }}</td>
-          <td>{{ team.conf }}</td>
-          <td>{{ team.home }}</td>
-          <td>{{ team.away }}</td>
-          <td>{{ team.div }}</td>
-        </tr>
-        <tr *ngIf="west.length === 0">
-          <td colspan="10">No data available for Western Conference</td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Team</th>
+            <th>W</th>
+            <th>L</th>
+            <th>PCT</th>
+            <th>GB</th>
+            <th>CONF</th>
+            <th>HOME</th>
+            <th>AWAY</th>
+            <th>Div</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let team of west; trackBy: trackByTeam">
+            <td><img [src]="team.logo" alt="{{ team.team }} Logo" class="team-logo"></td>
+            <td class="team-name">{{ team.team }}</td>
+            <td>{{ team.wins }}</td>
+            <td>{{ team.losses }}</td>
+            <td>{{ team.pct | number:'1.3-3' }}</td>
+            <td>{{ team.gb }}</td>
+            <td>{{ team.conf }}</td>
+            <td>{{ team.home }}</td>
+            <td>{{ team.away }}</td>
+            <td>{{ team.div }}</td>
+          </tr>
+          <tr *ngIf="west.length === 0">
+            <td colspan="10">No data available for Western Conference</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

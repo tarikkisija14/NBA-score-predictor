@@ -1,18 +1,20 @@
 <header>
-  <h1>NBA Predictor and Stats</h1>
-  <div class="nav-buttons">
-    <button (click)="showSection('standings')">Standings</button>
-    <button (click)="showSection('league-leaders')">League Leaders</button>
-    <button (click)="showSection('team-leaders')">Team Leaders</button>
-    <button (click)="showSection('nba-predictor')">NBA Predictor</button>
-  </div>
+  <h1>NBA Predictor & Stats</h1>
+  <nav class="nav-buttons">
+    <button [class.active]="activeSection === 'standings'" (click)="showSection('standings')">Standings</button>
+    <button [class.active]="activeSection === 'league-leaders'" (click)="showSection('league-leaders')">League Leaders</button>
+    <button [class.active]="activeSection === 'team-leaders'" (click)="showSection('team-leaders')">Team Leaders</button>
+    <button [class.active]="activeSection === 'nba-predictor'" (click)="showSection('nba-predictor')">NBA Predictor</button>
+  </nav>
 </header>
+
 <main>
   <app-standings *ngIf="activeSection === 'standings'"></app-standings>
   <app-league-leaders *ngIf="activeSection === 'league-leaders'"></app-league-leaders>
   <app-team-leaders *ngIf="activeSection === 'team-leaders'"></app-team-leaders>
   <app-predictor *ngIf="activeSection === 'nba-predictor'"></app-predictor>
 </main>
+
 <footer>
   <p>&copy; 2025 NBA Predictor and Stats. All rights reserved.</p>
 </footer>

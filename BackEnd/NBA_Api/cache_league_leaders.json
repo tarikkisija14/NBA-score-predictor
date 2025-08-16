@@ -1,88 +1,29 @@
 {
-  "FG_PCT": [
+  "BLK": [
     {
-      "error": "Expecting value: line 1 column 1 (char 0)"
-    }
-  ],
-  "PTS": [
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "value": 3.8
+    },
     {
-      "player": "Shai Gilgeous-Alexander",
-      "team": "OKC",
+      "player": "Walker Kessler",
+      "team": "UTA",
       "value": 2.4
     },
     {
-      "player": "Giannis Antetokounmpo",
-      "team": "MIL",
-      "value": 3.1
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 3.3
-    },
-    {
-      "player": "Anthony Edwards",
-      "team": "MIN",
-      "value": 3.2
-    },
-    {
-      "player": "Jayson Tatum",
-      "team": "BOS",
-      "value": 2.9
-    }
-  ],
-  "AST": [
-    {
-      "player": "Trae Young",
-      "team": "ATL",
-      "value": 11.6
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 10.2
-    },
-    {
-      "player": "Tyrese Haliburton",
+      "player": "Myles Turner",
       "team": "IND",
-      "value": 9.2
+      "value": 2.0
     },
     {
-      "player": "Cade Cunningham",
-      "team": "DET",
-      "value": 9.1
+      "player": "Brook Lopez",
+      "team": "MIL",
+      "value": 1.9
     },
     {
-      "player": "James Harden",
-      "team": "LAC",
-      "value": 8.7
-    }
-  ],
-  "STL": [
-    {
-      "player": "Dyson Daniels",
-      "team": "ATL",
-      "value": 3.0
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 1.8
-    },
-    {
-      "player": "Cason Wallace",
-      "team": "OKC",
-      "value": 1.8
-    },
-    {
-      "player": "Kris Dunn",
-      "team": "LAC",
-      "value": 1.7
-    },
-    {
-      "player": "Shai Gilgeous-Alexander",
-      "team": "OKC",
-      "value": 1.7
+      "player": "Donovan Clingan",
+      "team": "POR",
+      "value": 1.6
     }
   ],
   "REB": [
@@ -112,31 +53,90 @@
       "value": 12.2
     }
   ],
-  "BLK": [
+  "PTS": [
     {
-      "player": "Victor Wembanyama",
-      "team": "SAS",
-      "value": 3.8
-    },
-    {
-      "player": "Walker Kessler",
-      "team": "UTA",
+      "player": "Shai Gilgeous-Alexander",
+      "team": "OKC",
       "value": 2.4
     },
     {
-      "player": "Myles Turner",
-      "team": "IND",
-      "value": 2.0
-    },
-    {
-      "player": "Brook Lopez",
+      "player": "Giannis Antetokounmpo",
       "team": "MIL",
-      "value": 1.9
+      "value": 3.1
     },
     {
-      "player": "Donovan Clingan",
-      "team": "POR",
-      "value": 1.6
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 3.3
+    },
+    {
+      "player": "Anthony Edwards",
+      "team": "MIN",
+      "value": 3.2
+    },
+    {
+      "player": "Jayson Tatum",
+      "team": "BOS",
+      "value": 2.9
+    }
+  ],
+  "STL": [
+    {
+      "player": "Dyson Daniels",
+      "team": "ATL",
+      "value": 3.0
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 1.8
+    },
+    {
+      "player": "Cason Wallace",
+      "team": "OKC",
+      "value": 1.8
+    },
+    {
+      "player": "Kris Dunn",
+      "team": "LAC",
+      "value": 1.7
+    },
+    {
+      "player": "Shai Gilgeous-Alexander",
+      "team": "OKC",
+      "value": 1.7
+    }
+  ],
+  "AST": [
+    {
+      "player": "Trae Young",
+      "team": "ATL",
+      "value": 11.6
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 10.2
+    },
+    {
+      "player": "Tyrese Haliburton",
+      "team": "IND",
+      "value": 9.2
+    },
+    {
+      "player": "Cade Cunningham",
+      "team": "DET",
+      "value": 9.1
+    },
+    {
+      "player": "James Harden",
+      "team": "LAC",
+      "value": 8.7
+    }
+  ],
+  "FG_PCT": [
+    {
+      "error": "Expecting value: line 1 column 1 (char 0)"
     }
   ]
 }
