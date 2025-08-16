@@ -5,15 +5,53 @@
   justify-content: center;
   min-height: 80vh;
 }
+
 .leaders-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-bottom: 2rem;
+  width: 100%;
 }
+
 .leader-box {
   border: 1px solid #ddd;
   padding: 2rem;
   border-radius: 5px;
   box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+.leader-box h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.leader-box ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leader-box li {
+  padding: 0.3rem 0;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.leader-box li:last-child {
+  border-bottom: none;
+}
+
+.loading, .error {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.error {
+  color: red;
 }

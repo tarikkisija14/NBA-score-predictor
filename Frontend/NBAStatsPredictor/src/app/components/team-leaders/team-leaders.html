@@ -1,64 +1,15 @@
-<section id="team-leaders">
+<section id="team-leaders" *ngIf="!loading && !error">
   <div class="leaders-grid">
-    <div class="leader-box">
-      <h3>Points Per Game (PPG)</h3>
+    <div class="leader-box" *ngFor="let category of categories; trackBy: trackByIndex">
+      <h3>{{ category.label }}</h3>
       <ol>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-      </ol>
-    </div>
-    <div class="leader-box">
-      <h3>Assists Per Game (APG)</h3>
-      <ol>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-      </ol>
-    </div>
-    <div class="leader-box">
-      <h3>Rebounds Per Game (RPG)</h3>
-      <ol>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-      </ol>
-    </div>
-    <div class="leader-box">
-      <h3>Steals Per Game (SPG)</h3>
-      <ol>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-      </ol>
-    </div>
-    <div class="leader-box">
-      <h3>Blocks Per Game (BPG)</h3>
-      <ol>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-        <li>Team Name - 0.0</li>
-      </ol>
-    </div>
-    <div class="leader-box">
-      <h3>Field Goal % (FG%)</h3>
-      <ol>
-        <li>Team Name - 0.0%</li>
-        <li>Team Name - 0.0%</li>
-        <li>Team Name - 0.0%</li>
-        <li>Team Name - 0.0%</li>
-        <li>Team Name - 0.0%</li>
+        <li *ngFor="let team of data[category.key]">
+          {{ team.team }} - {{ team.value }}
+        </li>
       </ol>
     </div>
   </div>
 </section>
+
+<div *ngIf="loading" class="loading">Loading team leaders...</div>
+<div *ngIf="error" class="error">{{ error }}</div>

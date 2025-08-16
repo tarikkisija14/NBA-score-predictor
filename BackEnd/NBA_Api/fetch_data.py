@@ -5,6 +5,10 @@ from nba_api.stats.static import teams
 import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from nba_api.stats.endpoints import leaguedashteamstats
+
+
+from requests import RequestException
 
 CACHE_DURATION = 60 * 60
 
@@ -42,7 +46,7 @@ def get_standings():
             "wins": team[13],
             "losses": team[14],
             "pct": team[15],
-            "gb":team[16],
+            "gb":team[38],
             "home": team[18],
             "away": team[19],
             "div": team[23],
@@ -105,7 +109,7 @@ def get_league_leaders():
     if cached:
         return cached
 
-    # Izbacili smo FG_PCT i stavili FT_PCT
+
     categories = {
         "PTS": "Points Per Game",
         "REB": "Total Rebounds Per Game",
@@ -142,11 +146,14 @@ def stat_index(stat):
     return mapping[stat]
 
 def fetch_team_stat(team_info, category):
-
     try:
-        stats = teamdashboardbygeneralsplits.TeamDashboardByGeneralSplits(
-            team_id=team_info["id"], per_mode_detailed="PerGame"
+        stats = leaguedashteamstats.LeagueDashTeamStats(
+            season="2024-25",
+            season_type_all_star="Regular Season",
+            team_ids=[team_info["id"]],
+            per_mode_detailed="PerGame"
         ).get_dict()
+
         row = stats['resultSets'][0]['rowSet'][0]
         return {
             "team": team_info["full_name"],
@@ -159,7 +166,6 @@ def fetch_team_stat(team_info, category):
 
 def get_team_leaders():
     cache_file = CACHE_FILES["team_leaders"]
-
     cached = read_cache(cache_file)
     if cached:
         return cached
@@ -184,7 +190,10 @@ def get_team_leaders():
                 for future in as_completed(futures):
                     leaders_list.append(future.result())
 
-            leaders_list = [t for t in leaders_list if "error" not in t]  # makni errore iz liste
+
+            leaders_list = [t for t in leaders_list if "error" not in t]
+
+
             leaders_list.sort(key=lambda x: x["value"], reverse=True)
             team_stats[category] = leaders_list[:5]
 
@@ -195,23 +204,23 @@ def get_team_leaders():
 
 def stat_index_team(stat):
     mapping = {
-        "PTS": 26,
-        "REB": 20,
-        "AST": 21,
+        "PTS": 27,
+        "REB": 19,
+        "AST": 20,
         "STL": 22,
         "BLK": 23,
-        "FG_PCT": 9
+        "FG_PCT": 10
     }
     return mapping[stat]
 
 
 def read_cache(file_path):
-    #if os.path.exists(file_path) and (time.time() - os.path.getmtime(file_path) < CACHE_DURATION):
-        #try:
-            #with open(file_path, "r", encoding="utf-8") as f:
-                #return json.load(f)
-        #except:
-            #return None
+    if os.path.exists(file_path) and (time.time() - os.path.getmtime(file_path) < CACHE_DURATION):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except:
+            return None
     return None
 
 

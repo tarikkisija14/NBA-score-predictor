@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|c:\\users\\tarik\\desktop\\nba score predictor\\backend\\nba_api\\controllers\\teamleaderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|solutionrelative:controllers\\teamleaderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|c:\\users\\tarik\\desktop\\nba score predictor\\backend\\nba_api\\controllers\\leagueleaderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|solutionrelative:controllers\\leagueleaderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -39,6 +43,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TeamLeadersController.cs",
+              "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\TeamLeadersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TeamLeadersController.cs",
+              "ToolTip": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\TeamLeadersController.cs",
+              "RelativeToolTip": "Controllers\\TeamLeadersController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-16T13:36:30.087Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "LeagueLeadersController.cs",
               "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\LeagueLeadersController.cs",
               "RelativeDocumentMoniker": "Controllers\\LeagueLeadersController.cs",
@@ -51,7 +68,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "cache_league_leaders.json",
               "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\cache_league_leaders.json",
               "RelativeDocumentMoniker": "cache_league_leaders.json",
@@ -59,12 +76,11 @@
               "RelativeToolTip": "cache_league_leaders.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-08-15T17:19:40.703Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-15T17:19:40.703Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -76,7 +92,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "PythonService.cs",
               "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Services\\PythonService.cs",
               "RelativeDocumentMoniker": "Services\\PythonService.cs",
@@ -84,12 +100,11 @@
               "RelativeToolTip": "Services\\PythonService.cs",
               "ViewState": "AgIAACgAAAAAAAAAAAAgwDEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T15:35:37.927Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-14T15:35:37.927Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "StandingsController.cs",
               "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\StandingsController.cs",
               "RelativeDocumentMoniker": "Controllers\\StandingsController.cs",

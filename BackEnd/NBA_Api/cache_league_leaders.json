@@ -1,83 +1,29 @@
 {
-  "STL": [
+  "MIN": [
     {
-      "player": "Dyson Daniels",
-      "team": "ATL",
-      "value": 3.0
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 1.8
-    },
-    {
-      "player": "Cason Wallace",
-      "team": "OKC",
-      "value": 1.8
-    },
-    {
-      "player": "Kris Dunn",
-      "team": "LAC",
-      "value": 1.7
-    },
-    {
-      "player": "Shai Gilgeous-Alexander",
-      "team": "OKC",
-      "value": 1.7
-    }
-  ],
-  "REB": [
-    {
-      "player": "Domantas Sabonis",
-      "team": "SAC",
-      "value": 13.9
-    },
-    {
-      "player": "Karl-Anthony Towns",
+      "player": "Josh Hart",
       "team": "NYK",
-      "value": 12.8
+      "value": 37.6
+    },
+    {
+      "player": "Devin Booker",
+      "team": "PHX",
+      "value": 37.3
+    },
+    {
+      "player": "Mikal Bridges",
+      "team": "NYK",
+      "value": 37.0
     },
     {
       "player": "Nikola Joki\u0107",
       "team": "DEN",
-      "value": 12.7
+      "value": 36.7
     },
     {
-      "player": "Ivica Zubac",
-      "team": "LAC",
-      "value": 12.6
-    },
-    {
-      "player": "Walker Kessler",
-      "team": "UTA",
-      "value": 12.2
-    }
-  ],
-  "AST": [
-    {
-      "player": "Trae Young",
-      "team": "ATL",
-      "value": 11.6
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 10.2
-    },
-    {
-      "player": "Tyrese Haliburton",
-      "team": "IND",
-      "value": 9.2
-    },
-    {
-      "player": "Cade Cunningham",
-      "team": "DET",
-      "value": 9.1
-    },
-    {
-      "player": "James Harden",
-      "team": "LAC",
-      "value": 8.7
+      "player": "OG Anunoby",
+      "team": "NYK",
+      "value": 36.6
     }
   ],
   "BLK": [
@@ -107,6 +53,60 @@
       "value": 1.6
     }
   ],
+  "STL": [
+    {
+      "player": "Dyson Daniels",
+      "team": "ATL",
+      "value": 3.0
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 1.8
+    },
+    {
+      "player": "Cason Wallace",
+      "team": "OKC",
+      "value": 1.8
+    },
+    {
+      "player": "Kris Dunn",
+      "team": "LAC",
+      "value": 1.7
+    },
+    {
+      "player": "Shai Gilgeous-Alexander",
+      "team": "OKC",
+      "value": 1.7
+    }
+  ],
+  "AST": [
+    {
+      "player": "Trae Young",
+      "team": "ATL",
+      "value": 11.6
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 10.2
+    },
+    {
+      "player": "Tyrese Haliburton",
+      "team": "IND",
+      "value": 9.2
+    },
+    {
+      "player": "Cade Cunningham",
+      "team": "DET",
+      "value": 9.1
+    },
+    {
+      "player": "James Harden",
+      "team": "LAC",
+      "value": 8.7
+    }
+  ],
   "PTS": [
     {
       "player": "Shai Gilgeous-Alexander",
@@ -134,31 +134,31 @@
       "value": 27.9
     }
   ],
-  "MIN": [
+  "REB": [
     {
-      "player": "Josh Hart",
-      "team": "NYK",
-      "value": 37.6
+      "player": "Domantas Sabonis",
+      "team": "SAC",
+      "value": 13.9
     },
     {
-      "player": "Devin Booker",
-      "team": "PHX",
-      "value": 37.3
-    },
-    {
-      "player": "Mikal Bridges",
+      "player": "Karl-Anthony Towns",
       "team": "NYK",
-      "value": 37.0
+      "value": 12.8
     },
     {
       "player": "Nikola Joki\u0107",
       "team": "DEN",
-      "value": 36.7
+      "value": 12.7
     },
     {
-      "player": "OG Anunoby",
-      "team": "NYK",
-      "value": 36.6
+      "player": "Ivica Zubac",
+      "team": "LAC",
+      "value": 12.6
+    },
+    {
+      "player": "Walker Kessler",
+      "team": "UTA",
+      "value": 12.2
     }
   ]
 }
