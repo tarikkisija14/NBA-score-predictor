@@ -26,31 +26,31 @@
       "value": 36.6
     }
   ],
-  "BLK": [
+  "REB": [
     {
-      "player": "Victor Wembanyama",
-      "team": "SAS",
-      "value": 3.8
+      "player": "Domantas Sabonis",
+      "team": "SAC",
+      "value": 13.9
+    },
+    {
+      "player": "Karl-Anthony Towns",
+      "team": "NYK",
+      "value": 12.8
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 12.7
+    },
+    {
+      "player": "Ivica Zubac",
+      "team": "LAC",
+      "value": 12.6
     },
     {
       "player": "Walker Kessler",
       "team": "UTA",
-      "value": 2.4
-    },
-    {
-      "player": "Myles Turner",
-      "team": "IND",
-      "value": 2.0
-    },
-    {
-      "player": "Brook Lopez",
-      "team": "MIL",
-      "value": 1.9
-    },
-    {
-      "player": "Donovan Clingan",
-      "team": "POR",
-      "value": 1.6
+      "value": 12.2
     }
   ],
   "STL": [
@@ -134,31 +134,31 @@
       "value": 27.9
     }
   ],
-  "REB": [
+  "BLK": [
     {
-      "player": "Domantas Sabonis",
-      "team": "SAC",
-      "value": 13.9
-    },
-    {
-      "player": "Karl-Anthony Towns",
-      "team": "NYK",
-      "value": 12.8
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 12.7
-    },
-    {
-      "player": "Ivica Zubac",
-      "team": "LAC",
-      "value": 12.6
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "value": 3.8
     },
     {
       "player": "Walker Kessler",
       "team": "UTA",
-      "value": 12.2
+      "value": 2.4
+    },
+    {
+      "player": "Myles Turner",
+      "team": "IND",
+      "value": 2.0
+    },
+    {
+      "player": "Brook Lopez",
+      "team": "MIL",
+      "value": 1.9
+    },
+    {
+      "player": "Donovan Clingan",
+      "team": "POR",
+      "value": 1.6
     }
   ]
 }

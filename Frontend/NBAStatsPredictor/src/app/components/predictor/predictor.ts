@@ -7,6 +7,12 @@ interface Team {
   logo: string;
 }
 
+interface PredictionResponse {
+  winner: string;
+  winner_points: number;
+  loser: string;
+  loser_points: number;
+}
 
 @Component({
   selector: 'app-predictor',
@@ -19,37 +25,38 @@ interface Team {
 })
 export class PredictorComponent {
   teams: Team[] = [
-    { name: 'Atlanta Hawks', logo: 'assets/logos/hawks.png' },
-    { name: 'Boston Celtics', logo: 'assets/logos/celtics.png' },
-    { name: 'Brooklyn Nets', logo: 'assets/logos/nets.png' },
-    { name: 'Charlotte Hornets', logo: 'assets/logos/hornets.png' },
-    { name: 'Chicago Bulls', logo: 'assets/logos/bulls.png' },
-    { name: 'Cleveland Cavaliers', logo: 'assets/logos/cavaliers.png' },
-    { name: 'Dallas Mavericks', logo: 'assets/logos/mavericks.png' },
-    { name: 'Denver Nuggets', logo: 'assets/logos/nuggets.png' },
-    { name: 'Detroit Pistons', logo: 'assets/logos/pistons.png' },
-    { name: 'Golden State Warriors', logo: 'assets/logos/warriors.png' },
-    { name: 'Houston Rockets', logo: 'assets/logos/rockets.png' },
-    { name: 'Indiana Pacers', logo: 'assets/logos/pacers.png' },
-    { name: 'Los Angeles Clippers', logo: 'assets/logos/clippers.png' },
-    { name: 'Los Angeles Lakers', logo: 'assets/logos/lakers.png' },
-    { name: 'Memphis Grizzlies', logo: 'assets/logos/grizzlies.png' },
-    { name: 'Miami Heat', logo: 'assets/logos/heat.png' },
-    { name: 'Milwaukee Bucks', logo: 'assets/logos/bucks.png' },
-    { name: 'Minnesota Timberwolves', logo: 'assets/logos/timberwolves.png' },
-    { name: 'New Orleans Pelicans', logo: 'assets/logos/pelicans.png' },
-    { name: 'New York Knicks', logo: 'assets/logos/knicks.png' },
-    { name: 'Oklahoma City Thunder', logo: 'assets/logos/thunder.png' },
-    { name: 'Orlando Magic', logo: 'assets/logos/magic.png' },
-    { name: 'Philadelphia 76ers', logo: 'assets/logos/76ers.png' },
-    { name: 'Phoenix Suns', logo: 'assets/logos/suns.png' },
-    { name: 'Portland Trail Blazers', logo: 'assets/logos/blazers.png' },
-    { name: 'Sacramento Kings', logo: 'assets/logos/kings.png' },
-    { name: 'San Antonio Spurs', logo: 'assets/logos/spurs.png' },
-    { name: 'Toronto Raptors', logo: 'assets/logos/raptors.png' },
-    { name: 'Utah Jazz', logo: 'assets/logos/jazz.png' },
-    { name: 'Washington Wizards', logo: 'assets/logos/wizards.png' }
+    { name: 'Atlanta Hawks', logo: 'https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg' },
+    { name: 'Boston Celtics', logo: 'https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg' },
+    { name: 'Brooklyn Nets', logo: 'https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg' },
+    { name: 'Charlotte Hornets', logo: 'https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg' },
+    { name: 'Chicago Bulls', logo: 'https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg' },
+    { name: 'Cleveland Cavaliers', logo: 'https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg' },
+    { name: 'Dallas Mavericks', logo: 'https://cdn.nba.com/logos/nba/1610612742/primary/L/logo.svg' },
+    { name: 'Denver Nuggets', logo: 'https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg' },
+    { name: 'Detroit Pistons', logo: 'https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg' },
+    { name: 'Golden State Warriors', logo: 'https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg' },
+    { name: 'Houston Rockets', logo: 'https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg' },
+    { name: 'Indiana Pacers', logo: 'https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg' },
+    { name: 'LA Clippers', logo: 'https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg' },
+    { name: 'Los Angeles Lakers', logo: 'https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg' },
+    { name: 'Memphis Grizzlies', logo: 'https://cdn.nba.com/logos/nba/1610612763/primary/L/logo.svg' },
+    { name: 'Miami Heat', logo: 'https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg' },
+    { name: 'Milwaukee Bucks', logo: 'https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg' },
+    { name: 'Minnesota Timberwolves', logo: 'https://cdn.nba.com/logos/nba/1610612750/primary/L/logo.svg' },
+    { name: 'New Orleans Pelicans', logo: 'https://cdn.nba.com/logos/nba/1610612740/primary/L/logo.svg' },
+    { name: 'New York Knicks', logo: 'https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg' },
+    { name: 'Oklahoma City Thunder', logo: 'https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg' },
+    { name: 'Orlando Magic', logo: 'https://cdn.nba.com/logos/nba/1610612753/primary/L/logo.svg' },
+    { name: 'Philadelphia 76ers', logo: 'https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg' },
+    { name: 'Phoenix Suns', logo: 'https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg' },
+    { name: 'Portland Trail Blazers', logo: 'https://cdn.nba.com/logos/nba/1610612757/primary/L/logo.svg' },
+    { name: 'Sacramento Kings', logo: 'https://cdn.nba.com/logos/nba/1610612758/primary/L/logo.svg' },
+    { name: 'San Antonio Spurs', logo: 'https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg' },
+    { name: 'Toronto Raptors', logo: 'https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg' },
+    { name: 'Utah Jazz', logo: 'https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg' },
+    { name: 'Washington Wizards', logo: 'https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg' }
   ];
+
 
   team1Index = 0;
   team2Index = 1;
@@ -96,14 +103,14 @@ export class PredictorComponent {
     this.predictionResult = null;
 
     const payload = {
-      team1: this.team1Name,
-      team2: this.team2Name
+      HomeTeam: this.team1Name,
+      AwayTeam: this.team2Name
     };
 
-    this.http.post<{ result: string }>('http://localhost:5000/predict', payload)
+    this.http.post<PredictionResponse>('https://localhost:7042/api/prediction/predict', payload)
       .subscribe({
         next: (response) => {
-          this.predictionResult = response.result;
+          this.predictionResult = `${response.winner} ${response.winner_points} - ${response.loser_points} ${response.loser}`;
           this.loading = false;
         },
         error: (err) => {
@@ -112,6 +119,7 @@ export class PredictorComponent {
           this.loading = false;
         }
       });
+
   }
 
 }

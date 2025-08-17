@@ -19,14 +19,14 @@ namespace NBA_Api.Controllers
 
             var psi = new ProcessStartInfo
             {
-                FileName = "python",
-                Arguments = $"\"C:\\Users\\tarik\\Desktop\\nba score predictor\\AI Model\\predictor.py\" \"{request.HomeTeam}\" \"{request.AwayTeam}\"",
+                FileName = @"C:\Users\tarik\AppData\Local\Programs\Python\Python313\python.exe",
+                Arguments = $"\"C:\\Users\\tarik\\Desktop\\nba score predictor\\AI Model\\scripts\\Predictor.py\" \"{request.HomeTeam}\" \"{request.AwayTeam}\"",
+
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
             };
-
 
             try
             {
@@ -37,19 +37,19 @@ namespace NBA_Api.Controllers
 
                 if (!string.IsNullOrEmpty(errors))
                 {
+
+                    Debug.WriteLine($"Python Error: {errors}");
                     return StatusCode(500, errors);
-
                 }
-
-                var result = JsonSerializer.Deserialize<object>(output);
+                Debug.WriteLine($"Python Output: {output}");
+                var result = JsonSerializer.Deserialize<Dictionary<string, object>>(output);
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                return StatusCode(500,ex.Message);
+                Debug.WriteLine($"Exception: {ex.Message}");
+                return StatusCode(500, ex.Message);
             }
-           
-
         }
     }
 }

@@ -12,13 +12,11 @@
       <button class="arrow-button" (click)="nextTeam1()">&#9660;</button>
     </div>
 
-
     <button class="predict-button"
             (click)="predict()"
             [disabled]="loading || team1Index === team2Index">
       {{ loading ? 'Predicting...' : 'Predict' }}
     </button>
-
 
     <div class="team-picker">
       <button class="arrow-button" (click)="prevTeam2()">&#9650;</button>
@@ -29,7 +27,6 @@
       <button class="arrow-button" (click)="nextTeam2()">&#9660;</button>
     </div>
   </div>
-
 
   <div id="prediction-result" *ngIf="predictionResult">
     {{ predictionResult }}
