@@ -145,71 +145,105 @@ def stat_index(stat):
     }
     return mapping[stat]
 
-def fetch_team_stat(team_info, category):
-    try:
-        stats = leaguedashteamstats.LeagueDashTeamStats(
-            season="2024-25",
-            season_type_all_star="Regular Season",
-            team_ids=[team_info["id"]],
-            per_mode_detailed="PerGame"
-        ).get_dict()
+import time
+from requests.exceptions import RequestException
 
-        row = stats['resultSets'][0]['rowSet'][0]
-        return {
-            "team": team_info["full_name"],
-            "value": row[stat_index_team(category)]
-        }
-    except Exception as e:
-        return {"team": team_info["full_name"], "error": str(e)}
+def fetch_team_stat(team_info, category, retries=3, delay=1):
+    for attempt in range(retries):
+        try:
+            stats = leaguedashteamstats.LeagueDashTeamStats(
+                season="2024-25",
+                season_type_all_star="Regular Season",
+                team_id_nullable=team_info["id"],
+                per_mode_detailed="PerGame",
+                timeout=30
+            ).get_dict()
 
+            row = stats['resultSets'][0]['rowSet'][0]
+            return {
+                "team": team_info["full_name"],
+                "value": row[stat_index_team(category)]
+            }
+        except RequestException as e:
+            if attempt == retries - 1:
+                return {"team": team_info["full_name"], "error": str(e)}
+            time.sleep(delay * (attempt + 1))
+        except Exception as e:
+            return {"team": team_info["full_name"], "error": str(e)}
+    return {"team": team_info["full_name"], "error": "Max retries exceeded"}
 
 
 def get_team_leaders():
     cache_file = CACHE_FILES["team_leaders"]
-    cached = read_cache(cache_file)
-    if cached:
-        return cached
+    all_nba_teams = [team for team in teams.get_teams()
+                     if not any(x in team['full_name']
+                                for x in ['Stars', 'Magic', 'Hustle', 'Go-Go', 'Skyhawks'])]
+    team_id_map = {str(team['id']): team['full_name'] for team in all_nba_teams}
 
-    categories = {
-        "PTS": "Points Per Game",
-        "REB": "Total Rebounds Per Game",
-        "AST": "Assists Per Game",
-        "STL": "Steals Per Game",
-        "BLK": "Blocks Per Game",
-        "FG_PCT": "Field Goal Percentage"
-    }
-
-    all_teams = teams.get_teams()
-    team_stats = {}
 
     try:
-        for category in categories:
-            leaders_list = []
-            with ThreadPoolExecutor(max_workers=10) as executor:
-                futures = [executor.submit(fetch_team_stat, team_info, category) for team_info in all_teams]
-                for future in as_completed(futures):
-                    leaders_list.append(future.result())
+        cached = read_cache(cache_file)
+        if cached and any(len(v) > 0 for v in cached.values()):
+
+            if all(not any(x in item['team']
+                           for x in ['Stars', 'Magic', 'Hustle'])
+                   for cat in cached.values() for item in cat):
+                return cached
+    except:
+        pass
+
+    try:
+
+        response = leaguedashteamstats.LeagueDashTeamStats(
+            season="2024-25",
+            season_type_all_star="Regular Season",
+            per_mode_detailed="PerGame",
+            league_id_nullable='00'
+        ).get_dict()
 
 
-            leaders_list = [t for t in leaders_list if "error" not in t]
+        results = {}
+        headers = response['resultSets'][0]['headers']
+        rows = [row for row in response['resultSets'][0]['rowSet']
+                if str(row[headers.index('TEAM_ID')]) in team_id_map]
+
+        stat_indices = {stat: headers.index(stat) for stat in ['PTS', 'REB', 'AST', 'STL', 'BLK', 'FG_PCT']}
+
+        for stat in stat_indices:
+            results[stat] = []
+
+        for row in rows:
+            team_id = str(row[headers.index('TEAM_ID')])
+            team_name = team_id_map[team_id]  # We already filtered
+
+            for stat, index in stat_indices.items():
+                results[stat].append({
+                    "team": team_name,
+                    "value": row[index]
+                })
 
 
-            leaders_list.sort(key=lambda x: x["value"], reverse=True)
-            team_stats[category] = leaders_list[:5]
+        final_results = {}
+        for stat in results:
+            final_results[stat] = sorted(results[stat],
+                                         key=lambda x: x["value"],
+                                         reverse=True)[:5]
 
-        write_cache(cache_file, team_stats)
-        return team_stats
+        write_cache(cache_file, final_results)
+        return final_results
+
     except Exception as e:
-        return cached if cached else {"error": str(e)}
+        print(f"Error: {str(e)}")
+        return {stat: [] for stat in ['PTS', 'REB', 'AST', 'STL', 'BLK', 'FG_PCT']}
 
 def stat_index_team(stat):
     mapping = {
-        "PTS": 27,
-        "REB": 19,
-        "AST": 20,
-        "STL": 22,
-        "BLK": 23,
-        "FG_PCT": 10
+        "PTS": 26,
+        "REB": 18,
+        "AST": 19,
+        "STL": 21,
+        "BLK": 22,
+        "FG_PCT": 9
     }
     return mapping[stat]
 

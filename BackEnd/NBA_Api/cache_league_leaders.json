@@ -1,58 +1,4 @@
 {
-  "MIN": [
-    {
-      "player": "Josh Hart",
-      "team": "NYK",
-      "value": 37.6
-    },
-    {
-      "player": "Devin Booker",
-      "team": "PHX",
-      "value": 37.3
-    },
-    {
-      "player": "Mikal Bridges",
-      "team": "NYK",
-      "value": 37.0
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 36.7
-    },
-    {
-      "player": "OG Anunoby",
-      "team": "NYK",
-      "value": 36.6
-    }
-  ],
-  "REB": [
-    {
-      "player": "Domantas Sabonis",
-      "team": "SAC",
-      "value": 13.9
-    },
-    {
-      "player": "Karl-Anthony Towns",
-      "team": "NYK",
-      "value": 12.8
-    },
-    {
-      "player": "Nikola Joki\u0107",
-      "team": "DEN",
-      "value": 12.7
-    },
-    {
-      "player": "Ivica Zubac",
-      "team": "LAC",
-      "value": 12.6
-    },
-    {
-      "player": "Walker Kessler",
-      "team": "UTA",
-      "value": 12.2
-    }
-  ],
   "STL": [
     {
       "player": "Dyson Daniels",
@@ -107,6 +53,60 @@
       "value": 8.7
     }
   ],
+  "BLK": [
+    {
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "value": 3.8
+    },
+    {
+      "player": "Walker Kessler",
+      "team": "UTA",
+      "value": 2.4
+    },
+    {
+      "player": "Myles Turner",
+      "team": "IND",
+      "value": 2.0
+    },
+    {
+      "player": "Brook Lopez",
+      "team": "MIL",
+      "value": 1.9
+    },
+    {
+      "player": "Donovan Clingan",
+      "team": "POR",
+      "value": 1.6
+    }
+  ],
+  "REB": [
+    {
+      "player": "Domantas Sabonis",
+      "team": "SAC",
+      "value": 13.9
+    },
+    {
+      "player": "Karl-Anthony Towns",
+      "team": "NYK",
+      "value": 12.8
+    },
+    {
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 12.7
+    },
+    {
+      "player": "Ivica Zubac",
+      "team": "LAC",
+      "value": 12.6
+    },
+    {
+      "player": "Walker Kessler",
+      "team": "UTA",
+      "value": 12.2
+    }
+  ],
   "PTS": [
     {
       "player": "Shai Gilgeous-Alexander",
@@ -134,31 +134,31 @@
       "value": 27.9
     }
   ],
-  "BLK": [
+  "MIN": [
     {
-      "player": "Victor Wembanyama",
-      "team": "SAS",
-      "value": 3.8
+      "player": "Josh Hart",
+      "team": "NYK",
+      "value": 37.6
     },
     {
-      "player": "Walker Kessler",
-      "team": "UTA",
-      "value": 2.4
+      "player": "Devin Booker",
+      "team": "PHX",
+      "value": 37.3
     },
     {
-      "player": "Myles Turner",
-      "team": "IND",
-      "value": 2.0
+      "player": "Mikal Bridges",
+      "team": "NYK",
+      "value": 37.0
     },
     {
-      "player": "Brook Lopez",
-      "team": "MIL",
-      "value": 1.9
+      "player": "Nikola Joki\u0107",
+      "team": "DEN",
+      "value": 36.7
     },
     {
-      "player": "Donovan Clingan",
-      "team": "POR",
-      "value": 1.6
+      "player": "OG Anunoby",
+      "team": "NYK",
+      "value": 36.6
     }
   ]
 }

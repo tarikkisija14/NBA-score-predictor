@@ -63,7 +63,7 @@ def clean_and_enhance_data(input_csv_path: str, output_csv_path: str):
 
 
     df_final.to_csv(output_csv_path, index=False)
-    print(f"Poboljšani podaci spremljeni u: {output_csv_path}")
+    print(f"Poboljsani podaci spremljeni u: {output_csv_path}")
     print(f"Broj kolona: {len(df_final.columns)} (original: {len(df.columns)})")
     print(f"Primjer kolona: {list(df_final.columns[:10])}")
 
