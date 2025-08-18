@@ -25,5 +25,5 @@
 | **Backend**    | ASP.NET Core |
 | **API & Data** | Python, nba_api |
 | **AI Model**   | Scikit-learn, Pandas, NumPy |
-| **Data Format**| REST API, JSON |
+| **Data Format**|  JSON |
 
