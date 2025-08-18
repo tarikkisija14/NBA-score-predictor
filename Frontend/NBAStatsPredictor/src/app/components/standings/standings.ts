@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Standings } from '../../services/standings';
-
+//interface for team
 interface TeamRow {
   logo: string;
   team: string;
@@ -14,7 +14,7 @@ interface TeamRow {
   div: string;
   conf: string;
 }
-
+//interface for east and west
 interface StandingsData {
   east: TeamRow[];
   west: TeamRow[];
@@ -35,18 +35,18 @@ export class StandingsComponent implements OnInit {
   error: string | null = null;
 
   constructor(private standingsService: Standings) {}
-
+  //runs when component is initialized
   ngOnInit(): void {
     this.fetch();
   }
-
+  //fetch from backend API
   fetch(): void {
     this.loading = true;
     this.error = null;
 
     this.standingsService.getStandings().subscribe({
       next: (response: StandingsData) => {
-
+       //assign teams to local lists
         this.east = response.east || [];
         this.west = response.west || [];
         this.loading = false;
@@ -59,7 +59,7 @@ export class StandingsComponent implements OnInit {
     });
   }
 
-
+ //switch between east and west
   setConference(side: 'east' | 'west') {
     this.activeConference = side;
   }

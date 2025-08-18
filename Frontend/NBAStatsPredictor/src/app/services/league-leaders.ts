@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LeagueLeaders {
-  private apiUrl='https://localhost:7042/api/leagueleaders';
+  private apiUrl='https://localhost:7042/api/leagueleaders';//backend API endpoint
 
   constructor(private http: HttpClient) { }
-
+//fetch league leaders from API and return as Observable
   getLeagueLeaders():Observable<any>{
     return this.http.get<any>(this.apiUrl)
   }

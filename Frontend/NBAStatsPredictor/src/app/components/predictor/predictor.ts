@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {NgIf} from '@angular/common';
 
+//team interface
 interface Team {
   name: string;
   logo: string;
 }
 
+//response structure from prediction.py
 interface PredictionResponse {
   winner: string;
   winner_points: number;
@@ -24,6 +26,7 @@ interface PredictionResponse {
   standalone: true,
 })
 export class PredictorComponent {
+  //mapping teams with logos
   teams: Team[] = [
     { name: 'Atlanta Hawks', logo: 'https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg' },
     { name: 'Boston Celtics', logo: 'https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg' },
@@ -57,7 +60,7 @@ export class PredictorComponent {
     { name: 'Washington Wizards', logo: 'https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg' }
   ];
 
-
+ //selected teams
   team1Index = 0;
   team2Index = 1;
 
@@ -65,7 +68,7 @@ export class PredictorComponent {
   loading = false;
 
   constructor(private http: HttpClient) {}
-
+  //getters to access teams
   get team1Name(): string {
     return this.teams[this.team1Index].name;
   }
@@ -81,7 +84,7 @@ export class PredictorComponent {
   get team2Logo(): string {
     return this.teams[this.team2Index].logo;
   }
-
+  //navigation for teams with logos
   nextTeam1() {
     this.team1Index = (this.team1Index + 1) % this.teams.length;
   }
@@ -97,7 +100,7 @@ export class PredictorComponent {
   prevTeam2() {
     this.team2Index = (this.team2Index - 1 + this.teams.length) % this.teams.length;
   }
-
+//calls backend API
   predict() {
     this.loading = true;
     this.predictionResult = null;
@@ -106,7 +109,7 @@ export class PredictorComponent {
       HomeTeam: this.team1Name,
       AwayTeam: this.team2Name
     };
-
+ //post request to prediction endpoint
     this.http.post<PredictionResponse>('https://localhost:7042/api/prediction/predict', payload)
       .subscribe({
         next: (response) => {
