@@ -10,7 +10,9 @@ namespace NBA_Api.Services
 
         public PythonService(IConfiguration config)
         {
+            //path to python exe
             _pythonPath = config["PythonSettings:PythonPath"];
+            //path to the python script
             _scriptPath = config["PythonSettings:ScriptPath"];
         }
         public string RunFetchData(string scriptType)
@@ -19,10 +21,10 @@ namespace NBA_Api.Services
             {
                 if (!File.Exists(_scriptPath))
                 {
-                    Console.WriteLine($" Script not found at {_scriptPath}");
+                    Debug.WriteLine($" Script not found at {_scriptPath}");
                     return null;
                 }
-
+                //set up process info to run python script
                 var psi = new ProcessStartInfo
                 {
                     FileName = _pythonPath,
@@ -33,6 +35,7 @@ namespace NBA_Api.Services
                     CreateNoWindow = true
                 };
 
+                //start python process
                 using var process = new Process { StartInfo = psi };
                 process.Start();
 
@@ -44,11 +47,12 @@ namespace NBA_Api.Services
 
                 if (!string.IsNullOrEmpty(error))
                 {
-                    Console.WriteLine($" Python Error:\n{error}");
+                    Debug.WriteLine($" Python Error:\n{error}");
                     return null;
                 }
 
-                Console.WriteLine($" Script output ({output.Length} chars)");
+                Debug.WriteLine($" Script output ({output.Length} chars)");
+                //return json result as string
                 return output;
             }
             catch (Exception ex)

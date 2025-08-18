@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NBA_Api.DTOs;
+using System;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -12,11 +13,13 @@ namespace NBA_Api.Controllers
         [HttpPost("predict")]
         public IActionResult Predict([FromBody] PredictRequest request)
         {
+            //valdiation that both teams are provided
             if (string.IsNullOrWhiteSpace(request.HomeTeam) || string.IsNullOrWhiteSpace(request.AwayTeam))
             {
                 return BadRequest("Both teams must be provided");
             }
 
+            //set up process info to run python script
             var psi = new ProcessStartInfo
             {
                 FileName = @"C:\Users\tarik\AppData\Local\Programs\Python\Python313\python.exe",
@@ -27,7 +30,7 @@ namespace NBA_Api.Controllers
                 UseShellExecute = false,
                 CreateNoWindow = true,
             };
-
+            //starting python process
             try
             {
                 using var process = Process.Start(psi);
@@ -42,7 +45,9 @@ namespace NBA_Api.Controllers
                     return StatusCode(500, errors);
                 }
                 Debug.WriteLine($"Python Output: {output}");
+                //parse json output from python into dictionary
                 var result = JsonSerializer.Deserialize<Dictionary<string, object>>(output);
+                //return as  json to angular
                 return Ok(result);
             }
             catch (Exception ex)

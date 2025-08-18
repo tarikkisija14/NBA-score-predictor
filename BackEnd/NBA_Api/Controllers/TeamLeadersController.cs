@@ -18,10 +18,11 @@ namespace NBA_Api.Controllers
         [HttpGet]
         public IActionResult GetTeamLeaders()
         {
+            //run python script  and get JSON output as string
             string jsonResult = _pythonService.RunFetchData("team_leaders");
             if (string.IsNullOrWhiteSpace(jsonResult))
                 return StatusCode(500, "Failed to fetch team leaders data");
-
+            //if everything is ok return json to angular
             return Content(jsonResult, "application/json");
         }
 

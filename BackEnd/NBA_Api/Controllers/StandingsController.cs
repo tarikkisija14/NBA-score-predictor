@@ -17,6 +17,7 @@ namespace NBA_Api.Controllers
         [HttpGet]
         public IActionResult GetStandings()
         {
+            //run python script  and get JSON output as string
             string jsonResult = _pythonService.RunFetchData("standings");
 
             if (string.IsNullOrWhiteSpace(jsonResult))
@@ -27,7 +28,7 @@ namespace NBA_Api.Controllers
                     solution = "Check backend console for Python errors"
                 });
             }
-
+            //if everything is ok return json to angular
             return Content(jsonResult, "application/json");
         }
     }
