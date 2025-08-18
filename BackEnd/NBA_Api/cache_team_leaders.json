@@ -2,133 +2,133 @@
   "PTS": [
     {
       "team": "Cleveland Cavaliers",
-      "value": 120.3
+      "value": 121.9
     },
     {
       "team": "Memphis Grizzlies",
-      "value": 119.3
+      "value": 121.7
     },
     {
       "team": "Denver Nuggets",
-      "value": 118.4
+      "value": 120.8
     },
     {
       "team": "Oklahoma City Thunder",
-      "value": 117.4
+      "value": 120.5
     },
     {
       "team": "Atlanta Hawks",
-      "value": 116.3
+      "value": 118.2
     }
   ],
   "REB": [
     {
       "team": "Houston Rockets",
-      "value": 48.3
+      "value": 48.5
     },
     {
       "team": "Memphis Grizzlies",
-      "value": 46.3
-    },
-    {
-      "team": "Denver Nuggets",
-      "value": 45.3
-    },
-    {
-      "team": "Golden State Warriors",
-      "value": 45.3
+      "value": 47.3
     },
     {
       "team": "Chicago Bulls",
-      "value": 45.2
+      "value": 45.9
+    },
+    {
+      "team": "Denver Nuggets",
+      "value": 45.7
+    },
+    {
+      "team": "Cleveland Cavaliers",
+      "value": 45.4
     }
   ],
   "AST": [
     {
       "team": "Denver Nuggets",
-      "value": 30.1
+      "value": 31.0
     },
     {
       "team": "Atlanta Hawks",
-      "value": 29.0
+      "value": 29.6
     },
     {
       "team": "Indiana Pacers",
-      "value": 28.7
-    },
-    {
-      "team": "Golden State Warriors",
-      "value": 28.5
+      "value": 29.2
     },
     {
       "team": "Chicago Bulls",
-      "value": 28.3
+      "value": 29.1
+    },
+    {
+      "team": "Golden State Warriors",
+      "value": 29.1
     }
   ],
   "STL": [
     {
       "team": "Oklahoma City Thunder",
-      "value": 10.1
+      "value": 10.3
+    },
+    {
+      "team": "Atlanta Hawks",
+      "value": 9.7
     },
     {
       "team": "Golden State Warriors",
-      "value": 9.3
+      "value": 9.4
     },
     {
       "team": "Los Angeles Clippers",
-      "value": 9.3
+      "value": 9.4
     },
     {
       "team": "Philadelphia 76ers",
-      "value": 9.1
-    },
-    {
-      "team": "Memphis Grizzlies",
-      "value": 9.1
+      "value": 9.2
     }
   ],
   "BLK": [
     {
-      "team": "Orlando Magic",
-      "value": 5.9
+      "team": "Oklahoma City Thunder",
+      "value": 5.7
+    },
+    {
+      "team": "Memphis Grizzlies",
+      "value": 5.6
     },
     {
       "team": "Boston Celtics",
       "value": 5.5
     },
     {
-      "team": "Dallas Mavericks",
+      "team": "Indiana Pacers",
       "value": 5.5
     },
     {
-      "team": "Oklahoma City Thunder",
-      "value": 5.5
-    },
-    {
-      "team": "Memphis Grizzlies",
+      "team": "San Antonio Spurs",
       "value": 5.5
     }
   ],
   "FG_PCT": [
     {
       "team": "Denver Nuggets",
-      "value": 0.5
+      "value": 0.506
     },
     {
       "team": "Cleveland Cavaliers",
-      "value": 0.489
+      "value": 0.491
     },
     {
-      "team": "New York Knicks",
-      "value": 0.485
+      "team": "Indiana Pacers",
+      "value": 0.488
     },
     {
       "team": "Milwaukee Bucks",
-      "value": 0.483
+      "value": 0.486
     },
     {
-      "team": "Los Angeles Clippers",
-      "value": 0.48
+      "team": "New York Knicks",
+      "value": 0.486
     }
   ]
 }
