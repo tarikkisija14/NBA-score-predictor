@@ -26,4 +26,21 @@
 | **API & Data** | Python, nba_api |
 | **AI Model**   | Scikit-learn, Pandas, NumPy |
 | **Data Format**|  JSON |
+---
+## 📸 Screenshots
 
+<p align="center">
+  <img src="images/tabela.png" width="600"><br>
+  <em>League Table</em>
+</p>
+
+<p align="center">
+  <img src="images/PlayerStats.png" width="600"><br>
+  <em>Player Stats</em>
+</p>
+
+<p align="center">
+  <img src="images/predictor2.png" width="600"><br>
+  <em>Predictor</em>
+</p>
+---
