@@ -3,6 +3,7 @@ import {StandingsComponent} from './components/standings/standings';
 import {LeagueLeadersComponent} from './components/league-leaders/league-leaders';
 import {TeamLeadersComponent} from './components/team-leaders/team-leaders';
 import {PredictorComponent} from './components/predictor/predictor';
+import {NgIf} from '@angular/common';
 
 
 
@@ -13,6 +14,7 @@ import {PredictorComponent} from './components/predictor/predictor';
     LeagueLeadersComponent,
     TeamLeadersComponent,
     PredictorComponent,
+    NgIf,
 
   ],
   templateUrl: './app.html',

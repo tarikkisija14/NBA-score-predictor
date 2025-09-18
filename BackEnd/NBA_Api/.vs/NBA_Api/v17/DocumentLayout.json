@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|c:\\users\\tarik\\desktop\\nba score predictor\\backend\\nba_api\\controllers\\standingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|solutionrelative:controllers\\standingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|c:\\users\\tarik\\desktop\\nba score predictor\\backend\\nba_api\\controllers\\predictioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5AAE9429-CEE2-4875-9B13-6628368A1E54}|NBA_Api.csproj|solutionrelative:controllers\\predictioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +18,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StandingsController.cs",
+              "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\StandingsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\StandingsController.cs",
+              "ToolTip": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\StandingsController.cs",
+              "RelativeToolTip": "Controllers\\StandingsController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-31T10:30:03.849Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PredictionController.cs",
+              "DocumentMoniker": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\PredictionController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PredictionController.cs",
+              "ToolTip": "C:\\Users\\tarik\\Desktop\\nba score predictor\\BackEnd\\NBA_Api\\Controllers\\PredictionController.cs",
+              "RelativeToolTip": "Controllers\\PredictionController.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-31T10:30:01.003Z"
             }
           ]
         }
