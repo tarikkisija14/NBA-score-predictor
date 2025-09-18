@@ -30,7 +30,7 @@
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="images/tabela.png" width="600"><br>
+  <img src="images/Tabela.png" width="600"><br>
   <em>League Table</em>
 </p>
 
