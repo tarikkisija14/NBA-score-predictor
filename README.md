@@ -36,7 +36,7 @@
 
 <p align="center">
   <img src="images/PlayerStats.png" width="600"><br>
-  <em>Player Stats</em>
+  <em>Team Stats</em>
 </p>
 
 <p align="center">
