@@ -18,6 +18,8 @@ export class TeamLeadersComponent implements OnInit  {
    loading = false;
    error: string | null = null;
 
+
+
   categories = [
     { key: 'PTS', label: 'Points Per Game (PPG)' },
     { key: 'AST', label: 'Assists Per Game (APG)' },

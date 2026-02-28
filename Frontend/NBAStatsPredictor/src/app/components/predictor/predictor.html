@@ -6,29 +6,37 @@
     <div class="team-picker">
       <button class="arrow-button" (click)="prevTeam1()">&#9650;</button>
       <div class="team-circle">
-        <img [src]="team1Logo" [alt]="team1Name">
-        <p>{{ team1Name }}</p>
+        <img [src]="team1.logo" [alt]="team1.name">
+        <p>{{ team1.name }}</p>
       </div>
       <button class="arrow-button" (click)="nextTeam1()">&#9660;</button>
     </div>
 
+
     <button class="predict-button"
             (click)="predict()"
-            [disabled]="loading || team1Index === team2Index">
+            [disabled]="loading">
       {{ loading ? 'Predicting...' : 'Predict' }}
     </button>
 
     <div class="team-picker">
       <button class="arrow-button" (click)="prevTeam2()">&#9650;</button>
       <div class="team-circle">
-        <img [src]="team2Logo" [alt]="team2Name">
-        <p>{{ team2Name }}</p>
+        <img [src]="team2.logo" [alt]="team2.name">
+        <p>{{ team2.name }}</p>
       </div>
       <button class="arrow-button" (click)="nextTeam2()">&#9660;</button>
     </div>
   </div>
 
+
   <div id="prediction-result" *ngIf="predictionResult">
-    {{ predictionResult }}
+    <span class="winner">{{ predictionResult.winner }} {{ predictionResult.winner_points }}</span>
+    <span class="separator"> – </span>
+    <span class="loser">{{ predictionResult.loser_points }} {{ predictionResult.loser }}</span>
+  </div>
+
+  <div id="prediction-error" *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
   </div>
 </div>

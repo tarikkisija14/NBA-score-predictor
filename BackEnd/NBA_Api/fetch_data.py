@@ -25,13 +25,13 @@ nickname_to_id = {team["nickname"]: team["id"] for team in all_teams}
 
 
 def get_standings():
-    data = leaguestandingsv3.LeagueStandingsV3().get_dict()# returns NBA standings as a dictionary
-    rows = data['resultSets'][0]['rowSet']# returns a list of values for each team
+    data = leaguestandingsv3.LeagueStandingsV3().get_dict()
+    rows = data['resultSets'][0]['rowSet']
 
 
     east = []
     west = []
-    # empty lists to separate Eastern and Western Conference teams
+    
 
     for team in rows:
         team_name = team[4]
@@ -51,18 +51,18 @@ def get_standings():
             "div": team[23],
             "conf": team[24]
         }
-        # dictionary containing the information I want to show in the standings table
+        
         if team[6] == "East":
             east.append(team_info)
         elif team[6] == "West":
             west.append(team_info)
-        # split teams into East and West conferences for display
+       
 
     return {"east": east, "west": west}
 
 
 
-# fetches top 5 players for a given stat category
+
 def fetch_league_category(stat):
     try:
 
@@ -72,7 +72,7 @@ def fetch_league_category(stat):
             season="2024-25",
             season_type_all_star="Regular Season"
         ).get_dict()
-        # returns a dictionary of stats for the 2024-25 season with per-game averages from the regular season
+        
 
         data_set = None
         if "resultSet" in leaders:
@@ -92,13 +92,13 @@ def fetch_league_category(stat):
                 "value": row[stat_index(stat)]
             })
         return stat, players
-       # if everything works, return the top 5 players for this stat category
+       
 
     except Exception as e:
         return stat, [{"error": str(e)}]
 
 
-# gets league leaders  for given categories
+
 def get_league_leaders():
     cache_file = CACHE_FILES["league_leaders"]
 
@@ -106,7 +106,7 @@ def get_league_leaders():
     if cached:
         return cached
 
-    # define categories
+   
     categories = {
         "PTS": "Points Per Game",
         "REB": "Total Rebounds Per Game",
@@ -123,7 +123,7 @@ def get_league_leaders():
             for future in as_completed(futures):
                 stat, players = future.result()
                 results[stat] = players
-        # runs tasks in parallel (one per stat category), waits for them all to finish, and collects results
+        
         write_cache(cache_file, results)
         return results
     except Exception as e:
@@ -145,7 +145,7 @@ def stat_index(stat):
 import time
 from requests.exceptions import RequestException
 
-# fetch team stats for a specific team and  given category
+
 def fetch_team_stat(team_info, category, retries=3, delay=1):
     for attempt in range(retries):
         try:
@@ -156,18 +156,18 @@ def fetch_team_stat(team_info, category, retries=3, delay=1):
                 per_mode_detailed="PerGame",
                 timeout=30
             ).get_dict()
-            # returns team stats for the 2024-25 season per game, regular season
+            
             row = stats['resultSets'][0]['rowSet'][0]
             return {
                 "team": team_info["full_name"],
                 "value": row[stat_index_team(category)]
             }
-        # returns the requested stat for one team
+       
         except RequestException as e:
             if attempt == retries - 1:
                 return {"team": team_info["full_name"], "error": str(e)}
             time.sleep(delay * (attempt + 1))
-            # retry up to 3 times with increasing delay if there’s a request error
+           
         except Exception as e:
             return {"team": team_info["full_name"], "error": str(e)}
     return {"team": team_info["full_name"], "error": "Max retries exceeded"}
@@ -178,9 +178,9 @@ def get_team_leaders():
     all_nba_teams = [team for team in teams.get_teams()
                      if not any(x in team['full_name']
                                 for x in ['Stars', 'Magic', 'Hustle', 'Go-Go', 'Skyhawks'])]
-    # get_teams() returns NBA and G-League teams, so I  filter out G-League to keep only NBA teams
+    
     team_id_map = {str(team['id']): team['full_name'] for team in all_nba_teams}
-    # dictionary mapping NBA team IDs to names
+    
 
     try:
         cached = read_cache(cache_file)
@@ -201,14 +201,14 @@ def get_team_leaders():
             per_mode_detailed="PerGame",
             league_id_nullable='00'
         ).get_dict()
-        # dictionary of team stats for the 2024-25 regular season (per game)
+        
 
 
         results = {}
         headers = response['resultSets'][0]['headers']
         rows = [row for row in response['resultSets'][0]['rowSet']
                 if str(row[headers.index('TEAM_ID')]) in team_id_map]
-        # extract rows for NBA teams only
+       
 
         stat_indices = {stat: headers.index(stat) for stat in ['PTS', 'REB', 'AST', 'STL', 'BLK', 'FG_PCT']}
 
@@ -224,14 +224,14 @@ def get_team_leaders():
                     "team": team_name,
                     "value": row[index]
                 })
-        # collect stats for each NBA team
+        
 
         final_results = {}
         for stat in results:
             final_results[stat] = sorted(results[stat],
                                          key=lambda x: x["value"],
                                          reverse=True)[:5]
-        # sort and keep only the top 5 teams for each stat category
+       
 
         write_cache(cache_file, final_results)
         return final_results

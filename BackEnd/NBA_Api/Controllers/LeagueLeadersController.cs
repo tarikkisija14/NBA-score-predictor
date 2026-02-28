@@ -17,11 +17,11 @@ namespace NBA_Api.Controllers
         [HttpGet]
        public IActionResult GetLeagueLeaders()
         {
-            //run python script  and get JSON output as string
+           
             string jsonResult = _pythonService.RunFetchData("league_leaders");
             if (string.IsNullOrWhiteSpace(jsonResult))
                 return StatusCode(500, "Failed to fetch league leaders data");
-            //if everything is ok return json to angular
+           
             return Content(jsonResult, "application/json");
         }
     }

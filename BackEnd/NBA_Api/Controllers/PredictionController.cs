@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NBA_Api.DTOs;
-using System;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -10,49 +9,79 @@ namespace NBA_Api.Controllers
     [Route("api/[controller]")]
     public class PredictionController : ControllerBase
     {
+        private readonly IConfiguration _config;
+        private readonly ILogger<PredictionController> _logger;
+        private readonly IWebHostEnvironment _env;
+
+        public PredictionController(IConfiguration config, ILogger<PredictionController> logger, IWebHostEnvironment env)
+        {
+            _config = config;
+            _logger = logger;
+            _env = env;
+        }
+
         [HttpPost("predict")]
         public IActionResult Predict([FromBody] PredictRequest request)
         {
-            //valdiation that both teams are provided
             if (string.IsNullOrWhiteSpace(request.HomeTeam) || string.IsNullOrWhiteSpace(request.AwayTeam))
+                return BadRequest("Both teams must be provided.");
+
+            if (request.HomeTeam.Trim().Equals(request.AwayTeam.Trim(), StringComparison.OrdinalIgnoreCase))
+                return BadRequest("Home and away teams must be different.");
+
+            var pythonPath = _config["PythonSettings:PythonPath"] ?? "python";
+            var predictorScript = _config["PythonSettings:PredictorScriptPath"] ?? "";
+
+            _logger.LogInformation("=== PREDICTION DEBUG ===");
+            _logger.LogInformation("PythonPath: '{Python}'", pythonPath);
+            _logger.LogInformation("PredictorScriptPath from config: '{Script}'", predictorScript);
+            _logger.LogInformation("File exists: {Exists}", System.IO.File.Exists(predictorScript));
+            _logger.LogInformation("Teams: '{Home}' vs '{Away}'", request.HomeTeam, request.AwayTeam);
+
+            if (!System.IO.File.Exists(predictorScript))
             {
-                return BadRequest("Both teams must be provided");
+                _logger.LogError("Script not found at: '{Path}'", predictorScript);
+                return StatusCode(500, $"Script not found at: {predictorScript}");
             }
 
-            //set up process info to run python script
             var psi = new ProcessStartInfo
             {
-                FileName = @"C:\Users\tarik\AppData\Local\Programs\Python\Python313\python.exe",
-                Arguments = $"\"C:\\Users\\tarik\\Desktop\\nba score predictor\\AI Model\\scripts\\Predictor.py\" \"{request.HomeTeam}\" \"{request.AwayTeam}\"",
-
+                FileName = pythonPath,
+                Arguments = $"\"{predictorScript}\" \"{request.HomeTeam}\" \"{request.AwayTeam}\"",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true,
+                WorkingDirectory = Path.GetDirectoryName(predictorScript)!
             };
-            //starting python process
+
+            _logger.LogInformation("Running: {Python} {Args}", pythonPath, psi.Arguments);
+
             try
             {
-                using var process = Process.Start(psi);
+                using var process = Process.Start(psi)!;
                 string output = process.StandardOutput.ReadToEnd();
                 string errors = process.StandardError.ReadToEnd();
                 process.WaitForExit();
 
+                _logger.LogInformation("Exit code: {Code}", process.ExitCode);
+                _logger.LogInformation("Output: '{Output}'", output);
                 if (!string.IsNullOrEmpty(errors))
-                {
+                    _logger.LogError("Stderr: '{Errors}'", errors);
 
-                    Debug.WriteLine($"Python Error: {errors}");
-                    return StatusCode(500, errors);
-                }
-                Debug.WriteLine($"Python Output: {output}");
-                //parse json output from python into dictionary
+                if (process.ExitCode != 0 || string.IsNullOrWhiteSpace(output))
+                    return StatusCode(500, $"Python exited {process.ExitCode}. Stderr: {errors}");
+
                 var result = JsonSerializer.Deserialize<Dictionary<string, object>>(output);
-                //return as  json to angular
+
+                if (result != null && result.TryGetValue("error", out var errVal))
+                    return BadRequest(errVal?.ToString());
+
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Exception: {ex.Message}");
+                _logger.LogError(ex, "Exception while running predictor");
                 return StatusCode(500, ex.Message);
             }
         }

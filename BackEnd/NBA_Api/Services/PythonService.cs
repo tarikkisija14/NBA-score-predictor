@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
 namespace NBA_Api.Services
 {
@@ -7,61 +6,64 @@ namespace NBA_Api.Services
     {
         private readonly string _pythonPath;
         private readonly string _scriptPath;
+        private readonly ILogger<PythonService> _logger;
+        private readonly IWebHostEnvironment _env;
 
-        public PythonService(IConfiguration config)
+        public PythonService(IConfiguration config, ILogger<PythonService> logger, IWebHostEnvironment env)
         {
-            //path to python exe
-            _pythonPath = config["PythonSettings:PythonPath"];
-            //path to the python script
-            _scriptPath = config["PythonSettings:ScriptPath"];
+            _pythonPath = config["PythonSettings:PythonPath"] ?? "python";
+            _logger = logger;
+            _env = env;
+
+            
+            var rawPath = config["PythonSettings:FetchDataScriptPath"] ?? "fetch_data.py";
+            _scriptPath = Path.IsPathRooted(rawPath)
+                ? rawPath
+                : Path.GetFullPath(Path.Combine(_env.ContentRootPath, rawPath));
         }
-        public string RunFetchData(string scriptType)
+
+        public string? RunFetchData(string scriptType)
         {
+            if (!File.Exists(_scriptPath))
+            {
+                _logger.LogError("fetch_data script not found at: {Path}", _scriptPath);
+                return null;
+            }
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = _pythonPath,
+                Arguments = $"\"{_scriptPath}\" {scriptType}",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                
+                WorkingDirectory = Path.GetDirectoryName(_scriptPath)!
+            };
+
             try
             {
-                if (!File.Exists(_scriptPath))
-                {
-                    Debug.WriteLine($" Script not found at {_scriptPath}");
-                    return null;
-                }
-                //set up process info to run python script
-                var psi = new ProcessStartInfo
-                {
-                    FileName = _pythonPath,
-                    Arguments = $"\"{_scriptPath}\" {scriptType}",
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                //start python process
                 using var process = new Process { StartInfo = psi };
                 process.Start();
 
                 string output = process.StandardOutput.ReadToEnd();
                 string error = process.StandardError.ReadToEnd();
-
                 process.WaitForExit();
 
-
                 if (!string.IsNullOrEmpty(error))
-                {
-                    Debug.WriteLine($" Python Error:\n{error}");
-                    return null;
-                }
+                    _logger.LogError("Python fetch_data stderr: {Error}", error);
 
-                Debug.WriteLine($" Script output ({output.Length} chars)");
-                //return json result as string
+                if (process.ExitCode != 0 || string.IsNullOrWhiteSpace(output))
+                    return null;
+
                 return output;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($" Process Error: {ex}");
+                _logger.LogError(ex, "Exception running fetch_data script");
                 return null;
             }
         }
-
-
     }
 }

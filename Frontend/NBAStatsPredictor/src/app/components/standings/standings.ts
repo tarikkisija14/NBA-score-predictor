@@ -66,5 +66,3 @@ export class StandingsComponent implements OnInit {
 
   trackByTeam = (_: number, row: TeamRow) => row.team;
 }
-
-
