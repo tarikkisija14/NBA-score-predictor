@@ -1,0 +1,111 @@
+/* ── TICKER WRAP ─────────────────────────────────────────── */
+.ticker-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--bg-800);
+  border-bottom: 1px solid var(--border);
+  height: 36px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.ticker-label {
+  flex-shrink: 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nba-gold);
+  background: rgba(253,185,39,0.1);
+  border-right: 1px solid rgba(253,185,39,0.2);
+  padding: 0 0.85rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-track {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.ticker-inner {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: scroll-left 40s linear infinite;
+}
+
+.ticker-inner:hover { animation-play-state: paused; }
+
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── GAME CHIP ───────────────────────────────────────────── */
+.ticker-game {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.75rem;
+  white-space: nowrap;
+}
+
+.ticker-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+}
+
+.ticker-tricode {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ticker-score {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+}
+.ticker-live {
+  color: var(--nba-gold);
+}
+
+.ticker-status {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.ticker-live-status {
+  color: #22c55e;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.ticker-divider {
+  color: var(--border);
+  font-size: 0.8rem;
+  margin-left: 0.25rem;
+}
+
+/* ── MOBILE ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .ticker-label { padding: 0 0.5rem; font-size: 0.6rem; }
+  .ticker-logo  { width: 16px; height: 16px; }
+}

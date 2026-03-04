@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgIf, NgClass } from '@angular/common';
+import { NgIf, NgClass, NgFor } from '@angular/common';
 import { PredictorService, PredictionResponse } from '../../services/predictor';
 
 interface Team {
@@ -9,7 +9,7 @@ interface Team {
 
 @Component({
   selector: 'app-predictor',
-  imports: [NgIf, NgClass],
+  imports: [NgIf, NgClass, NgFor],
   templateUrl: './predictor.html',
   styleUrl: './predictor.css',
   standalone: true,
@@ -52,17 +52,40 @@ export class PredictorComponent {
   team1Index = 0;
   team2Index = 1;
 
+  // true = team1 is Home, false = team1 is Away
+  team1IsHome = true;
+
   predictionResult: PredictionResponse | null = null;
   errorMessage: string | null = null;
   loading = false;
-
 
   constructor(private predictorService: PredictorService) {}
 
   get team1(): Team { return this.teams[this.team1Index]; }
   get team2(): Team { return this.teams[this.team2Index]; }
 
+  get homeTeam(): Team { return this.team1IsHome ? this.team1 : this.team2; }
+  get awayTeam(): Team { return this.team1IsHome ? this.team2 : this.team1; }
 
+  get homeTeamName(): string { return this.homeTeam.name; }
+  get awayTeamName(): string { return this.awayTeam.name; }
+
+  get confidenceBar(): number {
+    return this.predictionResult ? Math.min(this.predictionResult.confidence, 100) : 0;
+  }
+
+  get confidenceColor(): string {
+    const c = this.confidenceBar;
+    if (c >= 75) return '#22c55e';   // green — high confidence
+    if (c >= 60) return '#fdb927';   // gold — medium
+    return '#c8102e';                // red — low
+  }
+
+  swapHomeAway() {
+    this.team1IsHome = !this.team1IsHome;
+    this.predictionResult = null;
+    this.errorMessage = null;
+  }
 
   private skip(current: number, delta: number, blocked: number): number {
     let next = (current + delta + this.teams.length) % this.teams.length;
@@ -72,18 +95,17 @@ export class PredictorComponent {
     return next;
   }
 
-  nextTeam1() { this.team1Index = this.skip(this.team1Index, +1, this.team2Index); }
-  prevTeam1() { this.team1Index = this.skip(this.team1Index, -1, this.team2Index); }
-  nextTeam2() { this.team2Index = this.skip(this.team2Index, +1, this.team1Index); }
-  prevTeam2() { this.team2Index = this.skip(this.team2Index, -1, this.team1Index); }
+  nextTeam1() { this.team1Index = this.skip(this.team1Index, +1, this.team2Index); this.predictionResult = null; }
+  prevTeam1() { this.team1Index = this.skip(this.team1Index, -1, this.team2Index); this.predictionResult = null; }
+  nextTeam2() { this.team2Index = this.skip(this.team2Index, +1, this.team1Index); this.predictionResult = null; }
+  prevTeam2() { this.team2Index = this.skip(this.team2Index, -1, this.team1Index); this.predictionResult = null; }
 
   predict() {
     this.loading = true;
     this.predictionResult = null;
     this.errorMessage = null;
 
-
-    this.predictorService.predictGame(this.team1.name, this.team2.name).subscribe({
+    this.predictorService.predictGame(this.homeTeamName, this.awayTeamName).subscribe({
       next: (response) => {
         this.predictionResult = response;
         this.loading = false;

@@ -1,27 +1,40 @@
 <div class="predictor">
   <h2>NBA Game Predictor</h2>
 
+  <!-- ── TEAM SELECTOR ── -->
   <div class="team-selector">
 
+    <!-- Team 1 -->
     <div class="team-picker">
+      <div class="home-away-badge" [ngClass]="team1IsHome ? 'badge-home' : 'badge-away'">
+        {{ team1IsHome ? 'HOME' : 'AWAY' }}
+      </div>
       <button class="arrow-button" (click)="prevTeam1()">&#9650;</button>
-      <div class="team-circle">
+      <div class="team-circle" [ngClass]="team1IsHome ? 'circle-home' : 'circle-away'">
         <img [src]="team1.logo" [alt]="team1.name">
         <p>{{ team1.name }}</p>
       </div>
       <button class="arrow-button" (click)="nextTeam1()">&#9660;</button>
     </div>
 
+    <!-- Centre: VS + Predict + Swap -->
+    <div class="centre-col">
+      <span class="vs-label">VS</span>
+      <button class="predict-button" (click)="predict()" [disabled]="loading">
+        {{ loading ? 'Predicting...' : 'Predict' }}
+      </button>
+      <button class="swap-button" (click)="swapHomeAway()" title="Swap Home / Away">
+        ⇄ Swap
+      </button>
+    </div>
 
-    <button class="predict-button"
-            (click)="predict()"
-            [disabled]="loading">
-      {{ loading ? 'Predicting...' : 'Predict' }}
-    </button>
-
+    <!-- Team 2 -->
     <div class="team-picker">
+      <div class="home-away-badge" [ngClass]="!team1IsHome ? 'badge-home' : 'badge-away'">
+        {{ !team1IsHome ? 'HOME' : 'AWAY' }}
+      </div>
       <button class="arrow-button" (click)="prevTeam2()">&#9650;</button>
-      <div class="team-circle">
+      <div class="team-circle" [ngClass]="!team1IsHome ? 'circle-home' : 'circle-away'">
         <img [src]="team2.logo" [alt]="team2.name">
         <p>{{ team2.name }}</p>
       </div>
@@ -29,13 +42,57 @@
     </div>
   </div>
 
-
+  <!-- ── RESULT ── -->
   <div id="prediction-result" *ngIf="predictionResult">
-    <span class="winner">{{ predictionResult.winner }} {{ predictionResult.winner_points }}</span>
-    <span class="separator"> – </span>
-    <span class="loser">{{ predictionResult.loser_points }} {{ predictionResult.loser }}</span>
+    <div class="result-score">
+      <span class="winner">{{ predictionResult.winner }} {{ predictionResult.winner_points }}</span>
+      <span class="separator"> – </span>
+      <span class="loser">{{ predictionResult.loser_points }} {{ predictionResult.loser }}</span>
+    </div>
+
+    <!-- Confidence bar -->
+    <div class="confidence-wrap">
+      <div class="confidence-label">
+        AI Confidence: <strong>{{ predictionResult.confidence }}%</strong>
+      </div>
+      <div class="confidence-track">
+        <div class="confidence-fill"
+             [style.width.%]="confidenceBar"
+             [style.background]="confidenceColor">
+        </div>
+      </div>
+    </div>
+
+    <!-- Head-to-Head -->
+    <div class="h2h" *ngIf="predictionResult.head_to_head.total > 0">
+      <div class="h2h-header">
+        <span class="h2h-title">Head to Head (last {{ predictionResult.head_to_head.total }})</span>
+        <div class="h2h-record">
+          <span class="h2h-wins">{{ predictionResult.head_to_head.team1_wins }}W</span>
+          <span class="h2h-sep">–</span>
+          <span class="h2h-losses">{{ predictionResult.head_to_head.team2_wins }}W</span>
+        </div>
+      </div>
+      <div class="h2h-games">
+        <div class="h2h-row" *ngFor="let g of predictionResult.head_to_head.games"
+             [ngClass]="g.winner === homeTeamName ? 'h2h-home-win' : 'h2h-away-win'">
+          <span class="h2h-season">{{ g.season }}</span>
+          <span class="h2h-matchup">
+            {{ g.home }} <strong>{{ g.home_pts }}</strong>
+            <span class="h2h-dash"> – </span>
+            <strong>{{ g.away_pts }}</strong> {{ g.away }}
+          </span>
+          <span class="h2h-winner-tag">{{ g.winner === homeTeamName ? '🏠 W' : '✈ W' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="h2h-empty" *ngIf="predictionResult.head_to_head.total === 0">
+      No recent matchup data found.
+    </div>
   </div>
 
+  <!-- ── ERROR ── -->
   <div id="prediction-error" *ngIf="errorMessage" class="error">
     {{ errorMessage }}
   </div>

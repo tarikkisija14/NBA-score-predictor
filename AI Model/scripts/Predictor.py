@@ -8,7 +8,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.join(BASE_DIR, "..", "models")
-DATA_DIR = os.path.join(BASE_DIR, "..", "data")
+DATA_DIR  = os.path.join(BASE_DIR, "..", "data")
 
 model_winner     = joblib.load(os.path.join(MODEL_DIR, "model_winner.pkl"))
 model_winner_pts = joblib.load(os.path.join(MODEL_DIR, "model_winner_pts.pkl"))
@@ -17,10 +17,65 @@ model_loser_pts  = joblib.load(os.path.join(MODEL_DIR, "model_loser_pts.pkl"))
 with open(os.path.join(MODEL_DIR, "feature_columns.json"), "r") as f:
     feature_cols = json.load(f)
 
-avg_stats = pd.read_csv(os.path.join(DATA_DIR, "team_average_stats.csv"))
-
+avg_stats   = pd.read_csv(os.path.join(DATA_DIR, "team_average_stats.csv"))
+matchups_df = pd.read_csv(os.path.join(DATA_DIR, "ALL_NBA_matchups_2020_2025.csv"))
 
 stats_lookup = {row["TEAM_NAME"]: row for _, row in avg_stats.iterrows()}
+
+
+def get_head_to_head(team1_name, team2_name, limit=10):
+    mask = (
+        ((matchups_df["TEAM1_NAME"] == team1_name) & (matchups_df["TEAM2_NAME"] == team2_name)) |
+        ((matchups_df["TEAM1_NAME"] == team2_name) & (matchups_df["TEAM2_NAME"] == team1_name))
+    )
+    subset = matchups_df[mask].copy()
+
+    if subset.empty:
+        return {"games": [], "team1_wins": 0, "team2_wins": 0, "total": 0}
+
+    subset = subset.sort_values(["SEASON", "GAME_ID"], ascending=[False, False])
+    subset = subset.head(limit)
+
+    games = []
+    team1_wins = 0
+    team2_wins = 0
+
+    for _, row in subset.iterrows():
+        t1 = row["TEAM1_NAME"]
+        t2 = row["TEAM2_NAME"]
+        t1_pts = int(row["TEAM1_PTS"])
+        t2_pts = int(row["TEAM2_PTS"])
+        t1_won = int(row["TEAM1_WIN"]) == 1
+
+        if t1 == team1_name:
+            home, away = t1, t2
+            home_pts, away_pts = t1_pts, t2_pts
+            team1_won_game = t1_won
+        else:
+            home, away = team1_name, team2_name
+            home_pts, away_pts = t2_pts, t1_pts
+            team1_won_game = not t1_won
+
+        if team1_won_game:
+            team1_wins += 1
+        else:
+            team2_wins += 1
+
+        games.append({
+            "season":   row["SEASON"],
+            "home":     home,
+            "away":     away,
+            "home_pts": home_pts,
+            "away_pts": away_pts,
+            "winner":   home if team1_won_game else away
+        })
+
+    return {
+        "games":      games,
+        "team1_wins": team1_wins,
+        "team2_wins": team2_wins,
+        "total":      len(games)
+    }
 
 
 def predict_game(team1_name, team2_name):
@@ -32,7 +87,6 @@ def predict_game(team1_name, team2_name):
         raise ValueError(f"Unknown team: {team2_name}")
 
     input_data = pd.DataFrame([[0] * len(feature_cols)], columns=feature_cols)
-
 
     t1 = stats_lookup[team1_name]
     t2 = stats_lookup[team2_name]
@@ -52,7 +106,6 @@ def predict_game(team1_name, team2_name):
         if col in input_data.columns:
             input_data.at[0, col] = val
 
-    # One-hot encode team names
     team1_col = f"TEAM1_{team1_name}"
     team2_col = f"TEAM2_{team2_name}"
 
@@ -64,18 +117,29 @@ def predict_game(team1_name, team2_name):
     input_data.at[0, team1_col] = 1
     input_data.at[0, team2_col] = 1
 
-    winner_pred      = model_winner.predict(input_data)[0]
-    winner_pts_pred  = int(round(model_winner_pts.predict(input_data)[0]))
-    loser_pts_pred   = int(round(model_loser_pts.predict(input_data)[0]))
+    winner_pred     = model_winner.predict(input_data)[0]
+    winner_pts_pred = int(round(model_winner_pts.predict(input_data)[0]))
+    loser_pts_pred  = int(round(model_loser_pts.predict(input_data)[0]))
+
+    try:
+        proba = model_winner.predict_proba(input_data)[0]
+        confidence = round(float(max(proba)) * 100, 1)
+    except AttributeError:
+        margin = abs(winner_pts_pred - loser_pts_pred)
+        confidence = round(50 + (margin / (margin + 10)) * 38, 1)
 
     winner_name = team1_name if winner_pred == 1 else team2_name
     loser_name  = team2_name if winner_pred == 1 else team1_name
+
+    h2h = get_head_to_head(team1_name, team2_name)
 
     return {
         "winner":        winner_name,
         "winner_points": winner_pts_pred,
         "loser":         loser_name,
         "loser_points":  loser_pts_pred,
+        "confidence":    confidence,
+        "head_to_head":  h2h,
     }
 
 

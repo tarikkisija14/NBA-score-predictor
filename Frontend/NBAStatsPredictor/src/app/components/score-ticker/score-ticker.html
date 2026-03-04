@@ -1,0 +1,25 @@
+<ng-container *ngIf="scores$ | async as scores">
+  <div class="ticker-wrap" *ngIf="scores.games.length > 0">
+    <span class="ticker-label">TODAY</span>
+    <div class="ticker-track">
+      <div class="ticker-inner">
+        <!-- Duplicate games for seamless loop -->
+        <ng-container *ngFor="let set of [scores.games, scores.games]">
+          <div class="ticker-game" *ngFor="let g of set; trackBy: trackByGame">
+            <img [src]="g.away_logo" [alt]="g.away_tricode" class="ticker-logo">
+            <span class="ticker-tricode">{{ g.away_tricode }}</span>
+            <span class="ticker-score" [class.ticker-live]="isLive(g)">
+              {{ g.away_score }} – {{ g.home_score }}
+            </span>
+            <span class="ticker-tricode">{{ g.home_tricode }}</span>
+            <img [src]="g.home_logo" [alt]="g.home_tricode" class="ticker-logo">
+            <span class="ticker-status" [class.ticker-live-status]="isLive(g)">
+              {{ isLive(g) ? '● LIVE' : g.status }}
+            </span>
+            <span class="ticker-divider">|</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>

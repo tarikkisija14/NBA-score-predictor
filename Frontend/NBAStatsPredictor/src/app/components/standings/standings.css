@@ -149,3 +149,30 @@ td:nth-child(5) {
   font-weight: 600;
   color: var(--nba-gold);
 }
+
+/* ── SORTABLE HEADERS ──────────────────────────────────── */
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+.sortable:hover { color: var(--nba-gold); }
+.sortable.sorted { color: var(--nba-gold); }
+
+.sort-icon {
+  display: inline-block;
+  margin-left: 0.3rem;
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+.sorted .sort-icon { opacity: 1; }
+
+.col-logo { width: 44px; }
+
+/* ── MOBILE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { font-size: 0.78rem; }
+  .team-logo { width: 24px; height: 24px; }
+}

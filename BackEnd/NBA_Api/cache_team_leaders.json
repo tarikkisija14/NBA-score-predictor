@@ -1,0 +1,135 @@
+{
+  "_cached_at": 1772634753.7572558,
+  "PTS": [
+    {
+      "team": "Denver Nuggets",
+      "value": 120.5
+    },
+    {
+      "team": "Miami Heat",
+      "value": 119.9
+    },
+    {
+      "team": "Cleveland Cavaliers",
+      "value": 119.1
+    },
+    {
+      "team": "Minnesota Timberwolves",
+      "value": 119.1
+    },
+    {
+      "team": "Oklahoma City Thunder",
+      "value": 119.1
+    }
+  ],
+  "REB": [
+    {
+      "team": "Houston Rockets",
+      "value": 48.4
+    },
+    {
+      "team": "Miami Heat",
+      "value": 47.2
+    },
+    {
+      "team": "San Antonio Spurs",
+      "value": 46.5
+    },
+    {
+      "team": "Charlotte Hornets",
+      "value": 46.3
+    },
+    {
+      "team": "Detroit Pistons",
+      "value": 46.3
+    }
+  ],
+  "AST": [
+    {
+      "team": "Atlanta Hawks",
+      "value": 30.4
+    },
+    {
+      "team": "Utah Jazz",
+      "value": 29.7
+    },
+    {
+      "team": "Golden State Warriors",
+      "value": 29.2
+    },
+    {
+      "team": "Toronto Raptors",
+      "value": 29.0
+    },
+    {
+      "team": "Memphis Grizzlies",
+      "value": 28.9
+    }
+  ],
+  "STL": [
+    {
+      "team": "Detroit Pistons",
+      "value": 10.6
+    },
+    {
+      "team": "Phoenix Suns",
+      "value": 10.0
+    },
+    {
+      "team": "Golden State Warriors",
+      "value": 9.9
+    },
+    {
+      "team": "Oklahoma City Thunder",
+      "value": 9.8
+    },
+    {
+      "team": "Atlanta Hawks",
+      "value": 9.4
+    }
+  ],
+  "BLK": [
+    {
+      "team": "Detroit Pistons",
+      "value": 6.4
+    },
+    {
+      "team": "Washington Wizards",
+      "value": 6.0
+    },
+    {
+      "team": "Houston Rockets",
+      "value": 5.9
+    },
+    {
+      "team": "Minnesota Timberwolves",
+      "value": 5.7
+    },
+    {
+      "team": "Oklahoma City Thunder",
+      "value": 5.7
+    }
+  ],
+  "FG_PCT": [
+    {
+      "team": "Los Angeles Lakers",
+      "value": 0.498
+    },
+    {
+      "team": "Denver Nuggets",
+      "value": 0.493
+    },
+    {
+      "team": "Minnesota Timberwolves",
+      "value": 0.484
+    },
+    {
+      "team": "Oklahoma City Thunder",
+      "value": 0.483
+    },
+    {
+      "team": "Detroit Pistons",
+      "value": 0.479
+    }
+  ]
+}

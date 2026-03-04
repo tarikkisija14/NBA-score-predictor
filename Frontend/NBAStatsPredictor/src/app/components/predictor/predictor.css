@@ -265,3 +265,208 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
+/* ── HOME/AWAY BADGE ─────────────────────────────────────── */
+.home-away-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.badge-home {
+  background: rgba(253,185,39,0.15);
+  color: var(--nba-gold);
+  border: 1px solid rgba(253,185,39,0.35);
+}
+.badge-away {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+/* ── CIRCLE STATE ────────────────────────────────────────── */
+.circle-home {
+  border-color: rgba(253,185,39,0.4) !important;
+  box-shadow:
+    0 0 0 1px rgba(253,185,39,0.2),
+    0 12px 50px rgba(0,0,0,0.7),
+    0 0 30px rgba(253,185,39,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.08) !important;
+}
+.circle-away {
+  opacity: 0.85;
+}
+
+/* ── CENTRE COL ──────────────────────────────────────────── */
+.centre-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+.vs-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+
+/* ── SWAP BUTTON ─────────────────────────────────────────── */
+.swap-button {
+  background: var(--surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+.swap-button:hover {
+  background: var(--surface-2);
+  color: var(--text-primary);
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* ── RESULT SCORE ────────────────────────────────────────── */
+.result-score {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── CONFIDENCE ──────────────────────────────────────────── */
+.confidence-wrap {
+  margin-top: 1.25rem;
+  width: 100%;
+  max-width: 420px;
+}
+.confidence-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+  text-align: center;
+}
+.confidence-label strong {
+  color: var(--text-primary);
+}
+.confidence-track {
+  height: 8px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.confidence-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.8s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* ── HEAD-TO-HEAD ────────────────────────────────────────── */
+.h2h {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 560px;
+}
+.h2h-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+.h2h-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.h2h-record {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+.h2h-wins   { color: var(--nba-gold); }
+.h2h-sep    { color: var(--text-muted); }
+.h2h-losses { color: var(--text-muted); }
+
+.h2h-games {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.h2h-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.h2h-home-win { border-left: 3px solid var(--nba-gold); }
+.h2h-away-win { border-left: 3px solid var(--text-muted); }
+
+.h2h-season { color: var(--text-muted); min-width: 52px; font-size: 0.75rem; }
+.h2h-matchup { flex: 1; color: var(--text-primary); }
+.h2h-dash { color: var(--text-muted); margin: 0 0.25rem; }
+.h2h-winner-tag { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+
+.h2h-empty {
+  margin-top: 1rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  letter-spacing: 0.06em;
+}
+
+/* ── RESULT BOX — flex column for new sections ───────────── */
+#prediction-result {
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── MOBILE ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .team-selector {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .centre-col {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .team-circle {
+    width: 150px;
+    height: 150px;
+  }
+  .team-circle img { width: 80px; height: 80px; }
+  .h2h-row { flex-wrap: wrap; }
+}

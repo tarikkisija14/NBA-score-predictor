@@ -99,3 +99,40 @@ footer {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+/* ── MOBILE RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 768px) {
+  header {
+    padding: 0 1rem;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  header h1 { font-size: 1.2rem; }
+
+  .nav-buttons {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+    border-radius: 10px;
+    gap: 0.15rem;
+  }
+
+  .nav-buttons button {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  main {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 { font-size: 1rem; }
+  .nav-buttons button { padding: 0.35rem 0.6rem; font-size: 0.75rem; }
+}
