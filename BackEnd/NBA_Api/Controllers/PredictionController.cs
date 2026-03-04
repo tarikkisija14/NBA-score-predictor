@@ -13,6 +13,9 @@ namespace NBA_Api.Controllers
         private readonly ILogger<PredictionController> _logger;
         private readonly IWebHostEnvironment _env;
 
+       
+        private static readonly char[] _forbiddenChars = ['"', '\'', ';', '&', '|', '`', '$', '<', '>'];
+
         public PredictionController(IConfiguration config, ILogger<PredictionController> logger, IWebHostEnvironment env)
         {
             _config = config;
@@ -28,6 +31,10 @@ namespace NBA_Api.Controllers
 
             if (request.HomeTeam.Trim().Equals(request.AwayTeam.Trim(), StringComparison.OrdinalIgnoreCase))
                 return BadRequest("Home and away teams must be different.");
+
+            
+            if (request.HomeTeam.IndexOfAny(_forbiddenChars) >= 0 || request.AwayTeam.IndexOfAny(_forbiddenChars) >= 0)
+                return BadRequest("Team name contains invalid characters.");
 
             var pythonPath = _config["PythonSettings:PythonPath"] ?? "python";
             var predictorScript = _config["PythonSettings:PredictorScriptPath"] ?? "";
@@ -60,9 +67,19 @@ namespace NBA_Api.Controllers
             try
             {
                 using var process = Process.Start(psi)!;
+
+               
+                bool finished = process.WaitForExit(30_000);
+
                 string output = process.StandardOutput.ReadToEnd();
                 string errors = process.StandardError.ReadToEnd();
-                process.WaitForExit();
+
+                if (!finished)
+                {
+                    try { process.Kill(); } catch { /* ignore kill errors */ }
+                    _logger.LogError("Python process timed out after 30 seconds");
+                    return StatusCode(504, "Prediction timed out. The model may be slow to load — please try again.");
+                }
 
                 _logger.LogInformation("Exit code: {Code}", process.ExitCode);
                 _logger.LogInformation("Output: '{Output}'", output);

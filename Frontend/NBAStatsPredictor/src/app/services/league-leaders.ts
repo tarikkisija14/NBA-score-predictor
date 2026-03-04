@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LeagueLeaders {
-  private apiUrl='https://localhost:7042/api/leagueleaders';//backend API endpoint
+  private apiUrl = `${environment.apiBaseUrl}/api/leagueleaders`;
 
   constructor(private http: HttpClient) { }
-//fetch league leaders from API and return as Observable
-  getLeagueLeaders():Observable<any>{
-    return this.http.get<any>(this.apiUrl)
-  }
 
+  getLeagueLeaders(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
+  }
 }

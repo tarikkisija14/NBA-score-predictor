@@ -1,57 +1,113 @@
+/* ── TEAM LEADERS ───────────────────────────────────────── */
+
 #team-leaders {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .leaders-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-bottom: 2rem;
-  width: 100%;
+  gap: 1.25rem;
 }
 
+/* ── CARD ───────────────────────────────────────────────── */
 .leader-box {
-  border: 1px solid #ddd;
-  padding: 2rem;
-  border-radius: 5px;
-  box-sizing: border-box;
-  background-color: #f9f9f9;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
+.leader-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* ── CARD HEADER ────────────────────────────────────────── */
 .leader-box h3 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
-  text-align: center;
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: var(--bg-700);
+  border-bottom: 1px solid var(--border);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nba-gold);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
+.leader-box h3::before {
+  content: '';
+  width: 3px;
+  height: 1rem;
+  background: var(--nba-blue);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ── LIST ───────────────────────────────────────────────── */
 .leader-box ol {
   list-style: none;
   padding: 0;
   margin: 0;
+  counter-reset: rank;
 }
 
 .leader-box li {
-  padding: 0.3rem 0;
-  font-size: 0.95rem;
-  border-bottom: 1px solid #ddd;
+  counter-increment: rank;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background 0.15s ease;
 }
 
-.leader-box li:last-child {
-  border-bottom: none;
+.leader-box li:last-child { border-bottom: none; }
+.leader-box li:hover { background: var(--surface-2); }
+
+.leader-box li::before {
+  content: counter(rank);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 18px;
+  flex-shrink: 0;
 }
 
+/* first place */
+.leader-box li:first-child { background: rgba(253,185,39,0.06); }
+.leader-box li:first-child::before { color: var(--nba-gold); }
+
+/* ── LOADING / ERROR ────────────────────────────────────── */
 .loading, .error {
   text-align: center;
-  margin-top: 2rem;
+  padding: 4rem;
+  font-family: 'Barlow Condensed', sans-serif;
   font-size: 1.2rem;
-  color: #555;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-.error {
-  color: red;
+.error { color: var(--nba-red); }
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .leaders-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .leaders-grid { grid-template-columns: 1fr; }
 }

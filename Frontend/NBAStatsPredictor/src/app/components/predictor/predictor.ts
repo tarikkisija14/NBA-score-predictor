@@ -9,7 +9,7 @@ interface Team {
 
 @Component({
   selector: 'app-predictor',
-  imports: [NgIf],
+  imports: [NgIf, NgClass],
   templateUrl: './predictor.html',
   styleUrl: './predictor.css',
   standalone: true,
@@ -63,26 +63,19 @@ export class PredictorComponent {
   get team2(): Team { return this.teams[this.team2Index]; }
 
 
-  nextTeam1() {
-    this.team1Index = (this.team1Index + 1) % this.teams.length;
-    if (this.team1Index === this.team2Index)
-      this.team1Index = (this.team1Index + 1) % this.teams.length;
+
+  private skip(current: number, delta: number, blocked: number): number {
+    let next = (current + delta + this.teams.length) % this.teams.length;
+    if (next === blocked) {
+      next = (next + delta + this.teams.length) % this.teams.length;
+    }
+    return next;
   }
-  prevTeam1() {
-    this.team1Index = (this.team1Index - 1 + this.teams.length) % this.teams.length;
-    if (this.team1Index === this.team2Index)
-      this.team1Index = (this.team1Index - 1 + this.teams.length) % this.teams.length;
-  }
-  nextTeam2() {
-    this.team2Index = (this.team2Index + 1) % this.teams.length;
-    if (this.team2Index === this.team1Index)
-      this.team2Index = (this.team2Index + 1) % this.teams.length;
-  }
-  prevTeam2() {
-    this.team2Index = (this.team2Index - 1 + this.teams.length) % this.teams.length;
-    if (this.team2Index === this.team1Index)
-      this.team2Index = (this.team2Index - 1 + this.teams.length) % this.teams.length;
-  }
+
+  nextTeam1() { this.team1Index = this.skip(this.team1Index, +1, this.team2Index); }
+  prevTeam1() { this.team1Index = this.skip(this.team1Index, -1, this.team2Index); }
+  nextTeam2() { this.team2Index = this.skip(this.team2Index, +1, this.team1Index); }
+  prevTeam2() { this.team2Index = this.skip(this.team2Index, -1, this.team1Index); }
 
   predict() {
     this.loading = true;

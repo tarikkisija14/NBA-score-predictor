@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TeamLeaders } from '../../services/team-leaders';
 
-//map type definition for data returned from the API
+
 type TeamLeadersMap = Record<string, { team?: string; value?: number }[]>;
 
 @Component({

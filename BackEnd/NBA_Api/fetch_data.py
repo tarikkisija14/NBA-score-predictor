@@ -6,8 +6,6 @@ import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from nba_api.stats.endpoints import leaguedashteamstats
 
-
-
 CACHE_DURATION = 60 * 60
 
 CACHE_FILES = {
@@ -16,28 +14,23 @@ CACHE_FILES = {
     "team_leaders": "cache_team_leaders.json"
 }
 
-
 DEFAULT_LOGO = "https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg"
 
 all_teams = teams.get_teams()
 nickname_to_id = {team["nickname"]: team["id"] for team in all_teams}
 
 
-
 def get_standings():
     data = leaguestandingsv3.LeagueStandingsV3().get_dict()
     rows = data['resultSets'][0]['rowSet']
 
-
     east = []
     west = []
-    
 
     for team in rows:
         team_name = team[4]
         team_id = nickname_to_id.get(team_name)
         logo_url = f"https://cdn.nba.com/logos/nba/{team_id}/primary/L/logo.svg" if team_id else DEFAULT_LOGO
-
 
         team_info = {
             "logo": logo_url,
@@ -45,22 +38,19 @@ def get_standings():
             "wins": team[13],
             "losses": team[14],
             "pct": team[15],
-            "gb":team[38],
+            "gb": team[38],
             "home": team[18],
             "away": team[19],
             "div": team[23],
             "conf": team[24]
         }
-        
+
         if team[6] == "East":
             east.append(team_info)
         elif team[6] == "West":
             west.append(team_info)
-       
 
     return {"east": east, "west": west}
-
-
 
 
 def fetch_league_category(stat):
@@ -72,14 +62,12 @@ def fetch_league_category(stat):
             season="2024-25",
             season_type_all_star="Regular Season"
         ).get_dict()
-        
 
         data_set = None
         if "resultSet" in leaders:
             data_set = leaders["resultSet"]
         elif "resultSets" in leaders:
             data_set = leaders["resultSets"][0]
-
 
         if not data_set or "rowSet" not in data_set or not data_set["rowSet"]:
             return stat, [{"error": f"No data returned for {stat}"}]
@@ -92,11 +80,10 @@ def fetch_league_category(stat):
                 "value": row[stat_index(stat)]
             })
         return stat, players
-       
+
 
     except Exception as e:
         return stat, [{"error": str(e)}]
-
 
 
 def get_league_leaders():
@@ -106,7 +93,6 @@ def get_league_leaders():
     if cached:
         return cached
 
-   
     categories = {
         "PTS": "Points Per Game",
         "REB": "Total Rebounds Per Game",
@@ -123,12 +109,11 @@ def get_league_leaders():
             for future in as_completed(futures):
                 stat, players = future.result()
                 results[stat] = players
-        
+
         write_cache(cache_file, results)
         return results
     except Exception as e:
         return cached if cached else {"error": str(e)}
-
 
 
 def stat_index(stat):
@@ -141,6 +126,7 @@ def stat_index(stat):
         "MIN": 6
     }
     return mapping[stat]
+
 
 import time
 from requests.exceptions import RequestException
@@ -156,18 +142,18 @@ def fetch_team_stat(team_info, category, retries=3, delay=1):
                 per_mode_detailed="PerGame",
                 timeout=30
             ).get_dict()
-            
+
             row = stats['resultSets'][0]['rowSet'][0]
             return {
                 "team": team_info["full_name"],
                 "value": row[stat_index_team(category)]
             }
-       
+
         except RequestException as e:
             if attempt == retries - 1:
                 return {"team": team_info["full_name"], "error": str(e)}
             time.sleep(delay * (attempt + 1))
-           
+
         except Exception as e:
             return {"team": team_info["full_name"], "error": str(e)}
     return {"team": team_info["full_name"], "error": "Max retries exceeded"}
@@ -178,9 +164,8 @@ def get_team_leaders():
     all_nba_teams = [team for team in teams.get_teams()
                      if not any(x in team['full_name']
                                 for x in ['Stars', 'Magic', 'Hustle', 'Go-Go', 'Skyhawks'])]
-    
+
     team_id_map = {str(team['id']): team['full_name'] for team in all_nba_teams}
-    
 
     try:
         cached = read_cache(cache_file)
@@ -201,14 +186,11 @@ def get_team_leaders():
             per_mode_detailed="PerGame",
             league_id_nullable='00'
         ).get_dict()
-        
-
 
         results = {}
         headers = response['resultSets'][0]['headers']
         rows = [row for row in response['resultSets'][0]['rowSet']
                 if str(row[headers.index('TEAM_ID')]) in team_id_map]
-       
 
         stat_indices = {stat: headers.index(stat) for stat in ['PTS', 'REB', 'AST', 'STL', 'BLK', 'FG_PCT']}
 
@@ -224,14 +206,12 @@ def get_team_leaders():
                     "team": team_name,
                     "value": row[index]
                 })
-        
 
         final_results = {}
         for stat in results:
             final_results[stat] = sorted(results[stat],
                                          key=lambda x: x["value"],
                                          reverse=True)[:5]
-       
 
         write_cache(cache_file, final_results)
         return final_results
@@ -239,6 +219,7 @@ def get_team_leaders():
     except Exception as e:
         print(f"Error: {str(e)}")
         return {stat: [] for stat in ['PTS', 'REB', 'AST', 'STL', 'BLK', 'FG_PCT']}
+
 
 def stat_index_team(stat):
     mapping = {
@@ -256,8 +237,18 @@ def read_cache(file_path):
     if os.path.exists(file_path) and (time.time() - os.path.getmtime(file_path) < CACHE_DURATION):
         try:
             with open(file_path, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except:
+                content = f.read().strip()
+                if not content:
+                    
+                    os.remove(file_path)
+                    return None
+                return json.loads(content)
+        except (json.JSONDecodeError, OSError):
+
+            try:
+                os.remove(file_path)
+            except OSError:
+                pass
             return None
     return None
 
@@ -268,6 +259,7 @@ def write_cache(file_path, data):
             json.dump(data, f, indent=2)
     except:
         pass
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -284,10 +276,3 @@ if __name__ == "__main__":
         print(json.dumps(get_team_leaders(), indent=2))
     else:
         print(json.dumps({"error": "Invalid option"}))
-
-
-
-
-
-
-
