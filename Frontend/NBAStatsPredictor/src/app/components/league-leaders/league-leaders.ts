@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LeagueLeaders } from '../../services/league-leaders';
 
-//map type definition for data returned from the API
+
 type LeadersMap = Record<string, { player?: string; team?: string; value?: number; error?: string }[]>;
 
 
@@ -16,11 +16,11 @@ type LeadersMap = Record<string, { player?: string; team?: string; value?: numbe
 
 })
 export class LeagueLeadersComponent implements OnInit {
-  //hold api data structured by given stat categories
+
   data: LeadersMap={};
    loading = false;
    error: string | null = null;
- //categories to display in UI
+
   categories = [
     { key: 'PTS', label: 'Points Per Game (PPG)' },
     { key: 'AST', label: 'Assists Per Game (APG)' },

@@ -1,5 +1,86 @@
 {
-  "_cached_at": 1772634746.3907642,
+  "_cached_at": 1772651572.4200187,
+  "MIN": [
+    {
+      "player": "Tyrese Maxey",
+      "team": "PHI",
+      "value": 38.3
+    },
+    {
+      "player": "Amen Thompson",
+      "team": "HOU",
+      "value": 36.9
+    },
+    {
+      "player": "Kevin Durant",
+      "team": "HOU",
+      "value": 36.6
+    },
+    {
+      "player": "Anthony Edwards",
+      "team": "MIN",
+      "value": 35.7
+    },
+    {
+      "player": "Trey Murphy III",
+      "team": "NOP",
+      "value": 35.5
+    }
+  ],
+  "BLK": [
+    {
+      "player": "Victor Wembanyama",
+      "team": "SAS",
+      "value": 2.9
+    },
+    {
+      "player": "Chet Holmgren",
+      "team": "OKC",
+      "value": 2.0
+    },
+    {
+      "player": "Jay Huff",
+      "team": "IND",
+      "value": 1.9
+    },
+    {
+      "player": "Evan Mobley",
+      "team": "CLE",
+      "value": 1.8
+    },
+    {
+      "player": "Isaiah Stewart",
+      "team": "DET",
+      "value": 1.7
+    }
+  ],
+  "PTS": [
+    {
+      "player": "Luka Don\u010di\u0107",
+      "team": "LAL",
+      "value": 32.7
+    },
+    {
+      "player": "Shai Gilgeous-Alexander",
+      "team": "OKC",
+      "value": 32.8
+    },
+    {
+      "player": "Anthony Edwards",
+      "team": "MIN",
+      "value": 25.9
+    },
+    {
+      "player": "Jaylen Brown",
+      "team": "BOS",
+      "value": 25.9
+    },
+    {
+      "player": "Tyrese Maxey",
+      "team": "PHI",
+      "value": 27.8
+    }
+  ],
   "AST": [
     {
       "player": "Nikola Joki\u0107",
@@ -54,60 +135,6 @@
       "value": 11.1
     }
   ],
-  "PTS": [
-    {
-      "player": "Luka Don\u010di\u0107",
-      "team": "LAL",
-      "value": 32.7
-    },
-    {
-      "player": "Shai Gilgeous-Alexander",
-      "team": "OKC",
-      "value": 32.8
-    },
-    {
-      "player": "Anthony Edwards",
-      "team": "MIN",
-      "value": 25.9
-    },
-    {
-      "player": "Jaylen Brown",
-      "team": "BOS",
-      "value": 25.9
-    },
-    {
-      "player": "Tyrese Maxey",
-      "team": "PHI",
-      "value": 27.8
-    }
-  ],
-  "BLK": [
-    {
-      "player": "Victor Wembanyama",
-      "team": "SAS",
-      "value": 2.9
-    },
-    {
-      "player": "Chet Holmgren",
-      "team": "OKC",
-      "value": 2.0
-    },
-    {
-      "player": "Jay Huff",
-      "team": "IND",
-      "value": 1.9
-    },
-    {
-      "player": "Evan Mobley",
-      "team": "CLE",
-      "value": 1.8
-    },
-    {
-      "player": "Isaiah Stewart",
-      "team": "DET",
-      "value": 1.7
-    }
-  ],
   "STL": [
     {
       "player": "Tyrese Maxey",
@@ -133,33 +160,6 @@
       "player": "Dyson Daniels",
       "team": "ATL",
       "value": 1.9
-    }
-  ],
-  "MIN": [
-    {
-      "player": "Tyrese Maxey",
-      "team": "PHI",
-      "value": 38.3
-    },
-    {
-      "player": "Amen Thompson",
-      "team": "HOU",
-      "value": 36.9
-    },
-    {
-      "player": "Kevin Durant",
-      "team": "HOU",
-      "value": 36.6
-    },
-    {
-      "player": "Anthony Edwards",
-      "team": "MIN",
-      "value": 35.7
-    },
-    {
-      "player": "Trey Murphy III",
-      "team": "NOP",
-      "value": 35.5
     }
   ]
 }

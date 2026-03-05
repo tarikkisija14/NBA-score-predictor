@@ -9,8 +9,7 @@ builder.Services.AddSingleton<PythonService>();
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAngular", policy =>
     {
-        // Origins are read from appsettings.json ("AllowedOrigins" array).
-        // This avoids hardcoding localhost so the app works in production too.
+        
         var allowedOrigins = builder.Configuration
             .GetSection("AllowedOrigins")
             .Get<string[]>()

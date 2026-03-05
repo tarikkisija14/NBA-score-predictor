@@ -13,7 +13,7 @@ type TeamLeadersMap = Record<string, { team?: string; value?: number }[]>;
   standalone:true
 })
 export class TeamLeadersComponent implements OnInit  {
-  //hold api data structured by given stat categories
+
    data: TeamLeadersMap = {};
    loading = false;
    error: string | null = null;
@@ -35,7 +35,7 @@ export class TeamLeadersComponent implements OnInit  {
     //start loading
     this.loading = true;
     this.service.getTeamLeaders().subscribe({
-      //if request succeeds, update data and stop loading
+
       next: (res) => { this.data = res || {}; this.loading = false; },
       error: (err) => { this.error = 'Failed to load team leaders'; console.error(err); this.loading = false; }
     });
