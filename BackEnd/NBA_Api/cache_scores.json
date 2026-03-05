@@ -1,1 +1,123 @@
-{"games": [{"game_id": "0022500893", "status": "7:00 pm ET", "period": 0, "home_team": "New York", "home_tricode": "NYK", "home_score": 0, "home_logo": "https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg", "away_team": "Oklahoma City", "away_tricode": "OKC", "away_score": 0, "away_logo": "https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg"}, {"game_id": "0022500894", "status": "7:30 pm ET", "period": 0, "home_team": "Boston", "home_tricode": "BOS", "home_score": 0, "home_logo": "https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg", "away_team": "Charlotte", "away_tricode": "CHA", "away_score": 0, "away_logo": "https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg"}, {"game_id": "0022500895", "status": "7:30 pm ET", "period": 0, "home_team": "Philadelphia", "home_tricode": "PHI", "home_score": 0, "home_logo": "https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg", "away_team": "Utah", "away_tricode": "UTA", "away_score": 0, "away_logo": "https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg"}, {"game_id": "0022500896", "status": "8:00 pm ET", "period": 0, "home_team": "Memphis", "home_tricode": "MEM", "home_score": 0, "home_logo": "https://cdn.nba.com/logos/nba/1610612763/primary/L/logo.svg", "away_team": "Portland", "away_tricode": "POR", "away_score": 0, "away_logo": "https://cdn.nba.com/logos/nba/1610612757/primary/L/logo.svg"}, {"game_id": "0022500897", "status": "9:30 pm ET", "period": 0, "home_team": "Milwaukee", "home_tricode": "MIL", "home_score": 0, "home_logo": "https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg", "away_team": "Atlanta", "away_tricode": "ATL", "away_score": 0, "away_logo": "https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg"}, {"game_id": "0022500898", "status": "10:30 pm ET", "period": 0, "home_team": "LA", "home_tricode": "LAC", "home_score": 0, "home_logo": "https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg", "away_team": "Indiana", "away_tricode": "IND", "away_score": 0, "away_logo": "https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg"}], "count": 6}
+{
+  "_cached_at": 1772739789.4658291,
+  "games": [
+    {
+      "game_id": "0022500899",
+      "status": "7:00 pm ET",
+      "period": 0,
+      "home_team": "Orlando",
+      "home_tricode": "ORL",
+      "home_score": 0,
+      "home_logo": "https://cdn.nba.com/logos/nba/1610612753/primary/L/logo.svg",
+      "away_team": "Dallas",
+      "away_tricode": "DAL",
+      "away_score": 0,
+      "away_logo": "https://cdn.nba.com/logos/nba/1610612742/primary/L/logo.svg"
+    },
+    {
+      "game_id": "0022500900",
+      "status": "7:00 pm ET",
+      "period": 0,
+      "home_team": "Washington",
+      "home_tricode": "WAS",
+      "home_score": 0,
+      "home_logo": "https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg",
+      "away_team": "Utah",
+      "away_tricode": "UTA",
+      "away_score": 0,
+      "away_logo": "https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg"
+    },
+    {
+      "game_id": "0022500901",
+      "status": "7:30 pm ET",
+      "period": 0,
+      "home_team": "Miami",
+      "home_tricode": "MIA",
+      "home_score": 0,
+      "home_logo": "https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg",
+      "away_team": "Brooklyn",
+      "away_tricode": "BKN",
+      "away_score": 0,
+      "away_logo": "https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg"
+    },
+    {
+      "game_id": "0022500902",
+      "status": "7:30 pm ET",
+      "period": 0,
+      "home_team": "Houston",
+      "home_tricode": "HOU",
+      "home_score": 0,
+      "home_logo": "https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg",
+      "away_team": "Golden State",
+      "away_tricode": "GSW",
+      "away_score": 0,
+      "away_logo": "https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg"
+    },
+    {
+      "game_id": "0022500903",
+      "status": "8:00 pm ET",
+      "period": 0,
+      "home_team": "Minnesota",
+      "home_tricode": "MIN",
+      "home_score": 0,
+      "home_logo": "https://cdn.nba.com/logos/nba/1610612750/primary/L/logo.svg",
+      "away_team": "Toronto",
+      "away_tricode": "TOR",
+      "away_score": 0,
+      "away_logo": "https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg"
+    },
+    {
+      "game_id": "0022500904",
+      "status": "8:00 pm ET",
+      "period": 0,
+      "home_team": "San Antonio",
+      "home_tricode": "SAS",
+      "home_score": 0,
+      "home_logo": "https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg",
+      "away_team": "Detroit",
+      "away_tricode": "DET",
+      "away_score": 0,
+      "away_logo": "https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg"
+    },
+    {
+      "game_id": "0022500905",
+      "status": "9:00 pm ET",
+      "period": 0,
+      "home_team": "Phoenix",
+      "home_tricode": "PHX",
+      "home_score": 0,
+      "home_logo": "https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg",
+      "away_team": "Chicago",
+      "away_tricode": "CHI",
+      "away_score": 0,
+      "away_logo": "https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg"
+    },
+    {
+      "game_id": "0022500906",
+      "status": "10:00 pm ET",
+      "period": 0,
+      "home_team": "Denver",
+      "home_tricode": "DEN",
+      "home_score": 0,
+      "home_logo": "https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg",
+      "away_team": "Los Angeles",
+      "away_tricode": "LAL",
+      "away_score": 0,
+      "away_logo": "https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg"
+    },
+    {
+      "game_id": "0022500907",
+      "status": "10:00 pm ET",
+      "period": 0,
+      "home_team": "Sacramento",
+      "home_tricode": "SAC",
+      "home_score": 0,
+      "home_logo": "https://cdn.nba.com/logos/nba/1610612758/primary/L/logo.svg",
+      "away_team": "New Orleans",
+      "away_tricode": "NOP",
+      "away_score": 0,
+      "away_logo": "https://cdn.nba.com/logos/nba/1610612740/primary/L/logo.svg"
+    }
+  ],
+  "count": 9
+}

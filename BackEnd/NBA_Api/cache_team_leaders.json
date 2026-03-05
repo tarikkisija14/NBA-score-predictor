@@ -1,5 +1,5 @@
 {
-  "_cached_at": 1772634753.7572558,
+  "_cached_at": 1772739594.212372,
   "PTS": [
     {
       "team": "Denver Nuggets",
@@ -19,7 +19,7 @@
     },
     {
       "team": "Oklahoma City Thunder",
-      "value": 119.1
+      "value": 118.8
     }
   ],
   "REB": [
@@ -47,11 +47,11 @@
   "AST": [
     {
       "team": "Atlanta Hawks",
-      "value": 30.4
+      "value": 30.5
     },
     {
       "team": "Utah Jazz",
-      "value": 29.7
+      "value": 29.6
     },
     {
       "team": "Golden State Warriors",
@@ -62,8 +62,8 @@
       "value": 29.0
     },
     {
-      "team": "Memphis Grizzlies",
-      "value": 28.9
+      "team": "Chicago Bulls",
+      "value": 28.8
     }
   ],
   "STL": [
@@ -107,7 +107,7 @@
     },
     {
       "team": "Oklahoma City Thunder",
-      "value": 5.7
+      "value": 5.6
     }
   ],
   "FG_PCT": [
@@ -125,11 +125,11 @@
     },
     {
       "team": "Oklahoma City Thunder",
-      "value": 0.483
+      "value": 0.482
     },
     {
-      "team": "Detroit Pistons",
-      "value": 0.479
+      "team": "Los Angeles Clippers",
+      "value": 0.481
     }
   ]
 }

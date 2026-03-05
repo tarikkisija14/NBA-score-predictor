@@ -6,10 +6,16 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSingleton<PythonService>();
 
-builder.Services.AddCors(options => {
+
+builder.Services.AddHttpClient("PredictApi", client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+
+builder.Services.AddCors(options =>
+{
     options.AddPolicy("AllowAngular", policy =>
     {
-        
         var allowedOrigins = builder.Configuration
             .GetSection("AllowedOrigins")
             .Get<string[]>()
@@ -29,9 +35,7 @@ app.UseRouting();
 app.UseCors("AllowAngular");
 
 if (app.Environment.IsDevelopment())
-{
     app.MapOpenApi();
-}
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
