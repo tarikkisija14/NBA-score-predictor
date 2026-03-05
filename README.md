@@ -39,7 +39,7 @@ The prediction model was trained on over 5 years of NBA matchup data (2020–202
 - **Winner score regressor** — predicts the winning team's final point total
 - **Loser score regressor** — predicts the losing team's final point total
 
-Input features include per-team averages for assists, rebounds, field goal percentage, and free throw percentage, along with one-hot encoded team identities. The model is trained as team1 (home) vs team2 (away), so the Home/Away toggle in the UI directly affects the prediction.
+Input features include per-team averages for field goal percentage, three-point percentage, free throw percentage, assists, rebounds, steals, blocks, turnovers, plus/minus, and recent form (W/L ratio over the last 10 games), along with one-hot encoded team identities. The model is trained as team1 (home) vs team2 (away), so the Home/Away toggle in the UI directly affects the prediction.
 
 ---
 
@@ -49,7 +49,8 @@ Input features include per-team averages for assists, rebounds, field goal perce
 |---|---|
 | Frontend | Angular 18 (standalone components) |
 | Backend | .NET 8 / ASP.NET Core Web API |
-| ML Model | Python · scikit-learn · pandas · joblib |
+| Prediction Service | Python · FastAPI · Uvicorn |
+| ML Model | scikit-learn · pandas · joblib |
 | Data | NBA API (`nba_api` Python package) |
 | Styling | Custom CSS · Barlow Condensed · NBA colour palette |
 
@@ -61,7 +62,7 @@ Input features include per-team averages for assists, rebounds, field goal perce
 ┌─────────────────────────────────────┐
 │           Angular Frontend          │
 │  Standings · Leaders · Predictor    │
-│         Score Ticker                │
+│           Score Ticker              │
 └────────────────┬────────────────────┘
                  │ HTTP (REST)
 ┌────────────────▼────────────────────┐
@@ -71,15 +72,15 @@ Input features include per-team averages for assists, rebounds, field goal perce
 │  /api/teamleaders                   │
 │  /api/prediction/predict            │
 └──────┬─────────────────┬────────────┘
-       │ spawn process   │ spawn process
+       │ spawn process   │ HTTP POST
 ┌──────▼──────┐   ┌──────▼──────────────┐
-│ fetch_data  │   │    Predictor.py      │
-│    .py      │   │  scikit-learn model  │
-│  NBA API    │   │  (3 × .pkl files)    │
+│ fetch_data  │   │   FastAPI Service    │
+│    .py      │   │   predict_api.py     │
+│  NBA API    │   │  scikit-learn model  │
 └─────────────┘   └──────────────────────┘
 ```
 
-The backend acts as a thin orchestration layer. For live data it spawns `fetch_data.py`, which handles caching (1-hour TTL for standings/leaders, 60-second TTL for scores) so the NBA API is never hammered on repeated requests. Predictions are handled by `Predictor.py`, which loads the trained model files and returns a JSON result. All cache files are automatically invalidated and regenerated if they become corrupt.
+The backend acts as a thin orchestration layer. For live data it spawns `fetch_data.py`, which handles caching (1-hour TTL for standings/leaders, 60-second TTL for scores) so the NBA API is never hammered on repeated requests. Predictions are routed to a dedicated FastAPI microservice that loads the trained model once at startup and keeps it in memory — reducing prediction latency from ~10s to ~100ms. All cache files are automatically invalidated and regenerated if they become corrupt or stale.
 
 ---
 
