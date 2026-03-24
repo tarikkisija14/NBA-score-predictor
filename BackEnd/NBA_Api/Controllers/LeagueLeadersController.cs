@@ -8,21 +8,21 @@ namespace NBA_Api.Controllers
     public class LeagueLeadersController : ControllerBase
     {
         private readonly PythonService _pythonService;
-        
+
         public LeagueLeadersController(PythonService pythonService)
         {
             _pythonService = pythonService;
         }
 
         [HttpGet]
-       public IActionResult GetLeagueLeaders()
+        public IActionResult GetLeagueLeaders()
         {
-           
-            string jsonResult = _pythonService.RunFetchData("league_leaders");
-            if (string.IsNullOrWhiteSpace(jsonResult))
+            var json = _pythonService.RunFetchData("league_leaders");
+
+            if (string.IsNullOrWhiteSpace(json))
                 return StatusCode(500, "Failed to fetch league leaders data");
-           
-            return Content(jsonResult, "application/json");
+
+            return Content(json, "application/json");
         }
     }
 }

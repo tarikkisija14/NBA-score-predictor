@@ -1,114 +1,70 @@
-import pandas as pd
+
 import json
-import joblib
-import numpy as np
 import sys
-import os
+import joblib
+import pandas as pd
+
+from Constants import (
+    MODEL_WINNER_FILENAME,
+    MODEL_WINNER_PTS_FILENAME,
+    MODEL_LOSER_PTS_FILENAME,
+    FEATURE_COLS_FILENAME,
+    RAW_DATA_FILENAME,
+    AVG_STATS_FILENAME,
+)
+from Paths import model_path, data_path
+from PredictionHelpers import estimate_confidence_from_margin, get_head_to_head
 
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR = os.path.join(BASE_DIR, "..", "models")
-DATA_DIR  = os.path.join(BASE_DIR, "..", "data")
-
-model_winner     = joblib.load(os.path.join(MODEL_DIR, "model_winner.pkl"))
-model_winner_pts = joblib.load(os.path.join(MODEL_DIR, "model_winner_pts.pkl"))
-model_loser_pts  = joblib.load(os.path.join(MODEL_DIR, "model_loser_pts.pkl"))
-
-with open(os.path.join(MODEL_DIR, "feature_columns.json"), "r") as f:
-    feature_cols = json.load(f)
-
-avg_stats   = pd.read_csv(os.path.join(DATA_DIR, "team_average_stats.csv"))
-matchups_df = pd.read_csv(os.path.join(DATA_DIR, "ALL_NBA_matchups_2020_2025.csv"))
-
-stats_lookup = {row["TEAM_NAME"]: row for _, row in avg_stats.iterrows()}
 
 
-def get_head_to_head(team1_name, team2_name, limit=10):
-    mask = (
-        ((matchups_df["TEAM1_NAME"] == team1_name) & (matchups_df["TEAM2_NAME"] == team2_name)) |
-        ((matchups_df["TEAM1_NAME"] == team2_name) & (matchups_df["TEAM2_NAME"] == team1_name))
-    )
-    subset = matchups_df[mask].copy()
+_model_winner     = joblib.load(model_path(MODEL_WINNER_FILENAME))
+_model_winner_pts = joblib.load(model_path(MODEL_WINNER_PTS_FILENAME))
+_model_loser_pts  = joblib.load(model_path(MODEL_LOSER_PTS_FILENAME))
 
-    if subset.empty:
-        return {"games": [], "team1_wins": 0, "team2_wins": 0, "total": 0}
+with open(model_path(FEATURE_COLS_FILENAME)) as f:
+    _feature_cols: list[str] = json.load(f)
 
-    subset = subset.sort_values(["SEASON", "GAME_ID"], ascending=[False, False])
-    subset = subset.head(limit)
+_avg_stats   = pd.read_csv(data_path(AVG_STATS_FILENAME))
+_matchups_df = pd.read_csv(data_path(RAW_DATA_FILENAME))
 
-    games = []
-    team1_wins = 0
-    team2_wins = 0
-
-    for _, row in subset.iterrows():
-        t1 = row["TEAM1_NAME"]
-        t2 = row["TEAM2_NAME"]
-        t1_pts = int(row["TEAM1_PTS"])
-        t2_pts = int(row["TEAM2_PTS"])
-        t1_won = int(row["TEAM1_WIN"]) == 1
-
-        if t1 == team1_name:
-            home, away = t1, t2
-            home_pts, away_pts = t1_pts, t2_pts
-            team1_won_game = t1_won
-        else:
-            home, away = team1_name, team2_name
-            home_pts, away_pts = t2_pts, t1_pts
-            team1_won_game = not t1_won
-
-        if team1_won_game:
-            team1_wins += 1
-        else:
-            team2_wins += 1
-
-        games.append({
-            "season":   row["SEASON"],
-            "home":     home,
-            "away":     away,
-            "home_pts": home_pts,
-            "away_pts": away_pts,
-            "winner":   home if team1_won_game else away
-        })
-
-    return {
-        "games":      games,
-        "team1_wins": team1_wins,
-        "team2_wins": team2_wins,
-        "total":      len(games)
-    }
+_stats_lookup: dict = {row["TEAM_NAME"]: row for _, row in _avg_stats.iterrows()}
 
 
-def predict_game(team1_name, team2_name):
+
+
+def _validate_teams(team1_name: str, team2_name: str) -> None:
     if team1_name == team2_name:
         raise ValueError("Team 1 and Team 2 must be different teams.")
-    if team1_name not in stats_lookup:
-        raise ValueError(f"Unknown team: {team1_name}")
-    if team2_name not in stats_lookup:
-        raise ValueError(f"Unknown team: {team2_name}")
+    for name in (team1_name, team2_name):
+        if name not in _stats_lookup:
+            raise ValueError(f"Unknown team: {name}")
 
-    input_data = pd.DataFrame([[0] * len(feature_cols)], columns=feature_cols)
 
-    t1 = stats_lookup[team1_name]
-    t2 = stats_lookup[team2_name]
 
-    stat_map = {
-        "TEAM1_AST":    t1["TEAM1_AST"],
-        "TEAM2_AST":    t2["TEAM1_AST"],
-        "TEAM1_REB":    t1["TEAM1_REB"],
-        "TEAM2_REB":    t2["TEAM1_REB"],
-        "TEAM1_FG_PCT": t1["TEAM1_FG_PCT"],
-        "TEAM2_FG_PCT": t2["TEAM1_FG_PCT"],
-        "TEAM1_FT_PCT": t1["TEAM1_FT_PCT"],
-        "TEAM2_FT_PCT": t2["TEAM1_FT_PCT"],
-    }
 
-    for col, val in stat_map.items():
-        if col in input_data.columns:
-            input_data.at[0, col] = val
+_STAT_MAP_KEYS = [
+    ("TEAM1_AST",        "TEAM2_AST",        "TEAM1_AST"),
+    ("TEAM1_REB",        "TEAM2_REB",        "TEAM1_REB"),
+    ("TEAM1_FG_PCT",     "TEAM2_FG_PCT",     "TEAM1_FG_PCT"),
+    ("TEAM1_FT_PCT",     "TEAM2_FT_PCT",     "TEAM1_FT_PCT"),
+]
+
+
+def _build_input_row(team1_name: str, team2_name: str) -> pd.DataFrame:
+    t1 = _stats_lookup[team1_name]
+    t2 = _stats_lookup[team2_name]
+
+    input_data = pd.DataFrame([[0] * len(_feature_cols)], columns=_feature_cols)
+
+    for col1, col2, lookup_key in _STAT_MAP_KEYS:
+        if col1 in input_data.columns:
+            input_data.at[0, col1] = t1[lookup_key]
+        if col2 in input_data.columns:
+            input_data.at[0, col2] = t2[lookup_key]
 
     team1_col = f"TEAM1_{team1_name}"
     team2_col = f"TEAM2_{team2_name}"
-
     if team1_col not in input_data.columns:
         raise ValueError(f"Team not recognised in model: {team1_name}")
     if team2_col not in input_data.columns:
@@ -117,21 +73,27 @@ def predict_game(team1_name, team2_name):
     input_data.at[0, team1_col] = 1
     input_data.at[0, team2_col] = 1
 
-    winner_pred     = model_winner.predict(input_data)[0]
-    winner_pts_pred = int(round(model_winner_pts.predict(input_data)[0]))
-    loser_pts_pred  = int(round(model_loser_pts.predict(input_data)[0]))
+    return input_data
+
+
+
+def predict_game(team1_name: str, team2_name: str) -> dict:
+    _validate_teams(team1_name, team2_name)
+
+    X = _build_input_row(team1_name, team2_name)
+
+    winner_pred     = _model_winner.predict(X)[0]
+    winner_pts_pred = int(round(_model_winner_pts.predict(X)[0]))
+    loser_pts_pred  = int(round(_model_loser_pts.predict(X)[0]))
 
     try:
-        proba = model_winner.predict_proba(input_data)[0]
+        proba      = _model_winner.predict_proba(X)[0]
         confidence = round(float(max(proba)) * 100, 1)
     except AttributeError:
-        margin = abs(winner_pts_pred - loser_pts_pred)
-        confidence = round(50 + (margin / (margin + 10)) * 38, 1)
+        confidence = estimate_confidence_from_margin(winner_pts_pred, loser_pts_pred)
 
     winner_name = team1_name if winner_pred == 1 else team2_name
     loser_name  = team2_name if winner_pred == 1 else team1_name
-
-    h2h = get_head_to_head(team1_name, team2_name)
 
     return {
         "winner":        winner_name,
@@ -139,8 +101,10 @@ def predict_game(team1_name, team2_name):
         "loser":         loser_name,
         "loser_points":  loser_pts_pred,
         "confidence":    confidence,
-        "head_to_head":  h2h,
+        "head_to_head":  get_head_to_head(_matchups_df, team1_name, team2_name),
     }
+
+
 
 
 if __name__ == "__main__":
@@ -148,12 +112,9 @@ if __name__ == "__main__":
         print(json.dumps({"error": "You must provide two team names"}))
         sys.exit(1)
 
-    team1 = sys.argv[1]
-    team2 = sys.argv[2]
-
     try:
-        result = predict_game(team1, team2)
+        result = predict_game(sys.argv[1], sys.argv[2])
         print(json.dumps(result))
-    except Exception as e:
-        print(json.dumps({"error": str(e)}))
+    except Exception as exc:
+        print(json.dumps({"error": str(exc)}))
         sys.exit(1)

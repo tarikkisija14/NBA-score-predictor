@@ -17,19 +17,16 @@ namespace NBA_Api.Controllers
         [HttpGet]
         public IActionResult GetStandings()
         {
-            
-            string jsonResult = _pythonService.RunFetchData("standings");
+            var json = _pythonService.RunFetchData("standings");
 
-            if (string.IsNullOrWhiteSpace(jsonResult))
-            {
+            if (string.IsNullOrWhiteSpace(json))
                 return StatusCode(500, new
                 {
                     error = "Python script returned empty response",
                     solution = "Check backend console for Python errors"
                 });
-            }
-            
-            return Content(jsonResult, "application/json");
+
+            return Content(json, "application/json");
         }
     }
 }

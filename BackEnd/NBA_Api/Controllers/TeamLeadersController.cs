@@ -7,7 +7,6 @@ namespace NBA_Api.Controllers
     [Route("api/[controller]")]
     public class TeamLeadersController : ControllerBase
     {
-       
         private readonly PythonService _pythonService;
 
         public TeamLeadersController(PythonService pythonService)
@@ -18,15 +17,12 @@ namespace NBA_Api.Controllers
         [HttpGet]
         public IActionResult GetTeamLeaders()
         {
-           
-            string jsonResult = _pythonService.RunFetchData("team_leaders");
-            if (string.IsNullOrWhiteSpace(jsonResult))
+            var json = _pythonService.RunFetchData("team_leaders");
+
+            if (string.IsNullOrWhiteSpace(json))
                 return StatusCode(500, "Failed to fetch team leaders data");
-            
-            return Content(jsonResult, "application/json");
+
+            return Content(json, "application/json");
         }
-
-
-
     }
 }

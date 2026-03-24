@@ -1,26 +1,31 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule, AsyncPipe } from '@angular/common';
-import{ScoresService,LiveGame,ScoresResponse} from '../../services/scorers-service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import {ScoresService,ScoresResponse,LiveGame} from '../../services/scorers-service';
+
+const LIVE_STATUS_KEYWORDS     = ['qtr', 'half', 'ot'];
+const FINISHED_STATUS_KEYWORDS = ['final', 'pm', 'am'];
 
 @Component({
   selector: 'app-score-ticker',
+  standalone: true,
   imports: [CommonModule, AsyncPipe],
   templateUrl: './score-ticker.html',
   styleUrl: './score-ticker.css',
-  standalone: true,
 })
 export class ScoreTickerComponent {
-  scores$: Observable<ScoresResponse>;
+  readonly scores$: Observable<ScoresResponse>;
 
   constructor(private scoresService: ScoresService) {
     this.scores$ = this.scoresService.scores$;
   }
 
   isLive(game: LiveGame): boolean {
-    const s = game.status.toLowerCase();
-    return s.includes('qtr') || s.includes('half') || s.includes('ot') || game.period > 0 && !s.includes('final') && !s.includes('pm') && !s.includes('am');
+    const status     = game.status.toLowerCase();
+    const hasLiveKw  = LIVE_STATUS_KEYWORDS.some(kw => status.includes(kw));
+    const isFinished = FINISHED_STATUS_KEYWORDS.some(kw => status.includes(kw));
+    return hasLiveKw || (game.period > 0 && !isFinished);
   }
 
-  trackByGame = (_: number, g: LiveGame) => g.game_id;
+  trackByGame = (_: number, game: LiveGame) => game.game_id;
 }

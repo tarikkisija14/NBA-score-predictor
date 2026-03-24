@@ -1,46 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TeamLeaders } from '../../services/team-leaders';
-
-
-type TeamLeadersMap = Record<string, { team?: string; value?: number }[]>;
+import {TeamLeadersService} from '../../services/team-leaders';
+import {LeadersMap} from '../../models/Nba.models';
+import {TEAM_LEADER_CATEGORIES} from '../../models/StatCategories.Constant';
 
 @Component({
   selector: 'app-team-leaders',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './team-leaders.html',
   styleUrl: './team-leaders.css',
-  standalone:true
 })
-export class TeamLeadersComponent implements OnInit  {
+export class TeamLeadersComponent implements OnInit {
+  data: LeadersMap = {};
+  loading = false;
+  error: string | null = null;
 
-   data: TeamLeadersMap = {};
-   loading = false;
-   error: string | null = null;
+  readonly categories = TEAM_LEADER_CATEGORIES;
 
-
-
-  categories = [
-    { key: 'PTS', label: 'Points Per Game (PPG)' },
-    { key: 'AST', label: 'Assists Per Game (APG)' },
-    { key: 'REB', label: 'Rebounds Per Game (RPG)' },
-    { key: 'STL', label: 'Steals Per Game (SPG)' },
-    { key: 'BLK', label: 'Blocks Per Game (BPG)' },
-    { key: 'FG_PCT', label: 'Field Goal % (FG%)' }
-  ];
-
-  constructor(private service: TeamLeaders) {}
+  constructor(private teamLeadersService: TeamLeadersService) {}
 
   ngOnInit(): void {
-    //start loading
     this.loading = true;
-    this.service.getTeamLeaders().subscribe({
-
-      next: (res) => { this.data = res || {}; this.loading = false; },
-      error: (err) => { this.error = 'Failed to load team leaders'; console.error(err); this.loading = false; }
+    this.teamLeadersService.getTeamLeaders().subscribe({
+      next: (res) => {
+        this.data    = res ?? {};
+        this.loading = false;
+      },
+      error: (err: unknown) => {
+        console.error(err);
+        this.error   = 'Failed to load team leaders';
+        this.loading = false;
+      },
     });
   }
 
   trackByIndex = (i: number) => i;
-
 }

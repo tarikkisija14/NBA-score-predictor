@@ -1,142 +1,133 @@
 
-import os
 import json
-import pandas as pd
 import numpy as np
+import pandas as pd
 import joblib
 from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import mean_squared_error, accuracy_score
 
-
-BASE_DIR  = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR  = os.path.join(BASE_DIR, '..', 'data')
-MODEL_DIR = os.path.join(BASE_DIR, '..', 'models')
-os.makedirs(MODEL_DIR, exist_ok=True)
-
-CSV_PATH = os.path.join(DATA_DIR, 'ALL_NBA_matchups_2020_2025_clean_encoded.csv')
-
-
-df = pd.read_csv(CSV_PATH)
-print(f"Učitano {len(df)} utakmica, {len(df.columns)} kolona")
-
-
-per_team_stats = [
-    'TEAM1_FG_PCT',  'TEAM2_FG_PCT',
-    'TEAM1_FT_PCT',  'TEAM2_FT_PCT',
-    'TEAM1_REB',     'TEAM2_REB',
-    'TEAM1_AST',     'TEAM2_AST',
-    'TEAM1_PLUS_MINUS', 'TEAM2_PLUS_MINUS',
-    'TEAM1_FG3_PCT', 'TEAM2_FG3_PCT',
-    'TEAM1_TOV',     'TEAM2_TOV',
-    'TEAM1_STL',     'TEAM2_STL',
-    'TEAM1_BLK',     'TEAM2_BLK',
-    'TEAM1_FORM',    'TEAM2_FORM',
-]
-
-# Diff/delta features — very informative for tree models
-diff_stats = [
-    'FG_PCT_DIFF', 'REB_DIFF', 'AST_DIFF', 'PLUS_MINUS_DIFF',
-    'FG3_PCT_DIFF', 'TOV_DIFF', 'STL_DIFF', 'BLK_DIFF', 'FORM_DIFF',
-]
-
-
-team_cols = [
-    col for col in df.columns
-    if (col.startswith('TEAM1_') or col.startswith('TEAM2_'))
-    and not any(x in col for x in [
-        'PTS', 'AST', 'REB', 'FG_PCT', 'FT_PCT', 'FG3_PCT',
-        'PLUS_MINUS', 'WIN', 'TOV', 'STL', 'BLK', 'FORM', 'ID'
-    ])
-]
-
-
-season_cols = ['SEASON_START'] if 'SEASON_START' in df.columns else []
-
-
-feature_cols = [
-    c for c in (per_team_stats + diff_stats + season_cols + team_cols)
-    if c in df.columns
-]
-
-print(f"Feature kolone ({len(feature_cols)}): {feature_cols[:15]} ...")
-
-# ── TARGETS ──────────────────────────────────────────────────────────────────
-X           = df[feature_cols]
-y_winner    = df['WINNER']
-y_winner_pts = df['WINNER_PTS']
-y_loser_pts  = df['LOSER_PTS']
-
-X_train, X_test, \
-y_train_win, y_test_win, \
-y_train_wpts, y_test_wpts, \
-y_train_lpts, y_test_lpts = train_test_split(
-    X, y_winner, y_winner_pts, y_loser_pts,
-    test_size=0.2, random_state=42
+from Constants import (
+    PER_TEAM_STAT_COLS,
+    DIFF_STAT_COLS,
+    STAT_COL_SUFFIXES,
+    GBM_PARAMS,
+    TOP_FEATURES_TO_PRINT,
+    TEST_SIZE,
+    RANDOM_STATE,
+    CLEAN_DATA_FILENAME,
+    MODEL_WINNER_FILENAME,
+    MODEL_WINNER_PTS_FILENAME,
+    MODEL_LOSER_PTS_FILENAME,
+    FEATURE_COLS_FILENAME,
 )
-
-# ── WINNER CLASSIFIER ────────────────────────────────────────────────────────
-print("\nTreniranje modela pobjednika (GradientBoostingClassifier)...")
-model_winner = GradientBoostingClassifier(
-    n_estimators=200,
-    learning_rate=0.05,
-    max_depth=4,
-    subsample=0.8,
-    random_state=42
-)
-model_winner.fit(X_train, y_train_win)
-
-y_pred_win = model_winner.predict(X_test)
-acc = accuracy_score(y_test_win, y_pred_win)
-print(f"  Test accuracy:  {acc:.4f}")
-
-cv_scores = cross_val_score(model_winner, X, y_winner, cv=5, scoring='accuracy')
-print(f"  CV accuracy:    {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
+from Paths import data_path, model_path
 
 
-print("\nTreniranje modela poena pobjednika (GradientBoostingRegressor)...")
-model_winner_pts = GradientBoostingRegressor(
-    n_estimators=200,
-    learning_rate=0.05,
-    max_depth=4,
-    subsample=0.8,
-    random_state=42
-)
-model_winner_pts.fit(X_train, y_train_wpts)
+# ---------------------------------------------------------------------------
+# Feature selection helpers
+# ---------------------------------------------------------------------------
 
-y_pred_wpts = model_winner_pts.predict(X_test)
-rmse_w = np.sqrt(mean_squared_error(y_test_wpts, y_pred_wpts))
-print(f"  RMSE poena pobjednika: {rmse_w:.3f}")
+def _get_team_indicator_cols(df: pd.DataFrame) -> list[str]:
+    """Return one-hot team-indicator columns (TEAM1_<Name>, TEAM2_<Name>)."""
+    return [
+        col for col in df.columns
+        if (col.startswith("TEAM1_") or col.startswith("TEAM2_"))
+        and not any(suffix in col for suffix in STAT_COL_SUFFIXES)
+    ]
 
 
-print("\nTreniranje modela poena gubitnika (GradientBoostingRegressor)...")
-model_loser_pts = GradientBoostingRegressor(
-    n_estimators=200,
-    learning_rate=0.05,
-    max_depth=4,
-    subsample=0.8,
-    random_state=42
-)
-model_loser_pts.fit(X_train, y_train_lpts)
-
-y_pred_lpts = model_loser_pts.predict(X_test)
-rmse_l = np.sqrt(mean_squared_error(y_test_lpts, y_pred_lpts))
-print(f"  RMSE poena gubitnika: {rmse_l:.3f}")
+def _build_feature_cols(df: pd.DataFrame) -> list[str]:
+    """Assemble the ordered list of feature columns that exist in *df*."""
+    season_cols = ["SEASON_START"] if "SEASON_START" in df.columns else []
+    candidates = (
+        PER_TEAM_STAT_COLS
+        + DIFF_STAT_COLS
+        + season_cols
+        + _get_team_indicator_cols(df)
+    )
+    return [c for c in candidates if c in df.columns]
 
 
-importances = model_winner.feature_importances_
-top_idx = np.argsort(importances)[::-1][:15]
-print("\nTop 15 najbitnijih feature-a:")
-for i in top_idx:
-    print(f"  {feature_cols[i]:<35} {importances[i]:.4f}")
 
 
-joblib.dump(model_winner,     os.path.join(MODEL_DIR, 'model_winner.pkl'))
-joblib.dump(model_winner_pts, os.path.join(MODEL_DIR, 'model_winner_pts.pkl'))
-joblib.dump(model_loser_pts,  os.path.join(MODEL_DIR, 'model_loser_pts.pkl'))
+def _train_winner_classifier(X_train, y_train, X_test, y_test, X_all, y_all):
+    model = GradientBoostingClassifier(**GBM_PARAMS)
+    model.fit(X_train, y_train)
 
-with open(os.path.join(MODEL_DIR, 'feature_columns.json'), 'w') as f:
-    json.dump(feature_cols, f, indent=2)
+    accuracy  = accuracy_score(y_test, model.predict(X_test))
+    cv_scores = cross_val_score(model, X_all, y_all, cv=5, scoring="accuracy")
+    print(f"  Test accuracy:  {accuracy:.4f}")
+    print(f"  CV accuracy:    {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
+    return model
 
-print(f"\nModeli sačuvani u: {MODEL_DIR}")
-print("Gotovo!")
+
+def _train_score_regressor(X_train, y_train, X_test, y_test, label: str):
+    model = GradientBoostingRegressor(**GBM_PARAMS)
+    model.fit(X_train, y_train)
+
+    rmse = np.sqrt(mean_squared_error(y_test, model.predict(X_test)))
+    print(f"  RMSE {label}: {rmse:.3f}")
+    return model
+
+
+def _print_top_features(model, feature_cols: list[str]) -> None:
+    importances = model.feature_importances_
+    top_indices = np.argsort(importances)[::-1][:TOP_FEATURES_TO_PRINT]
+    print(f"\nTop {TOP_FEATURES_TO_PRINT} features:")
+    for i in top_indices:
+        print(f"  {feature_cols[i]:<35} {importances[i]:.4f}")
+
+
+
+def main() -> None:
+    df = pd.read_csv(data_path(CLEAN_DATA_FILENAME))
+    print(f"Loaded {len(df)} games, {len(df.columns)} columns")
+
+    feature_cols = _build_feature_cols(df)
+    print(f"Feature columns ({len(feature_cols)}): {feature_cols[:15]} ...")
+
+    X            = df[feature_cols]
+    y_winner     = df["WINNER"]
+    y_winner_pts = df["WINNER_PTS"]
+    y_loser_pts  = df["LOSER_PTS"]
+
+    (X_train, X_test,
+     y_train_win,  y_test_win,
+     y_train_wpts, y_test_wpts,
+     y_train_lpts, y_test_lpts) = train_test_split(
+        X, y_winner, y_winner_pts, y_loser_pts,
+        test_size=TEST_SIZE,
+        random_state=RANDOM_STATE,
+    )
+
+    print("\nTraining winner classifier (GradientBoostingClassifier)...")
+    model_winner = _train_winner_classifier(
+        X_train, y_train_win, X_test, y_test_win, X, y_winner
+    )
+
+    print("\nTraining winner-score regressor (GradientBoostingRegressor)...")
+    model_winner_pts = _train_score_regressor(
+        X_train, y_train_wpts, X_test, y_test_wpts, "winner points"
+    )
+
+    print("\nTraining loser-score regressor (GradientBoostingRegressor)...")
+    model_loser_pts = _train_score_regressor(
+        X_train, y_train_lpts, X_test, y_test_lpts, "loser points"
+    )
+
+    _print_top_features(model_winner, feature_cols)
+
+    joblib.dump(model_winner,     model_path(MODEL_WINNER_FILENAME))
+    joblib.dump(model_winner_pts, model_path(MODEL_WINNER_PTS_FILENAME))
+    joblib.dump(model_loser_pts,  model_path(MODEL_LOSER_PTS_FILENAME))
+
+    with open(model_path(FEATURE_COLS_FILENAME), "w") as f:
+        json.dump(feature_cols, f, indent=2)
+
+    print(f"\nModels saved to: {model_path('')}")
+    print("Done!")
+
+
+if __name__ == "__main__":
+    main()

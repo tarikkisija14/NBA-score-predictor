@@ -1,7 +1,8 @@
 ﻿namespace NBA_Api.Services
 {
-public partial class PythonService
+    public partial class PythonService
     {
+       
         private record ProcessResult(
             bool Success,
             string Output,
@@ -10,13 +11,13 @@ public partial class PythonService
             bool IsRateLimit)
         {
             public static ProcessResult Ok(string output)
-                => new(true, output, "", false, false);
+                => new(true, output, string.Empty, IsTimeout: false, IsRateLimit: false);
 
             public static ProcessResult Timeout()
-                => new(false, "", "Process timed out", true, false);
+                => new(false, string.Empty, "Process timed out", IsTimeout: true, IsRateLimit: false);
 
             public static ProcessResult Failure(string error, bool rateLimit)
-                => new(false, "", error, false, rateLimit);
+                => new(false, string.Empty, error, IsTimeout: false, IsRateLimit: rateLimit);
         }
     }
 }
